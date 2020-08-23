@@ -1,0 +1,95 @@
+extends layout
+
+block content
+   if user 
+    div.ly_subHeader
+     div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+     div.ly_ancor
+        ul
+          li
+            a(href="/logout") ログアウト
+          li
+            a(href="/diary/new") 日記を作る
+          li
+            a(href="/users") 日記一覧へ
+          li
+            a(href="/list/new") 予定を作る
+   div.ly_listForm
+    div.bl_listFrom
+        div.bl_listForm_title 日記作成フォーム
+        div.bl_listForm_note 「訪れた場所」に関する記事は最大15個まで追加することができます
+        form(action='/diary/create' method='post'  encType="multipart/form-data")
+         div
+          span タイトル (文字数制限：24文字) :　
+          input(type="text" name="title" class="el_textForm")
+          br
+          span 日付(2020/9/20のような形式で記入) :　
+          input(type="text", name="date" class="el_textForm el_textForm__date")
+          br 
+          span.bl_listForm_weather 天気 :　
+          select(name="weather" class="el_selectForm")
+           option 晴れ
+           option 雨
+           option 曇り
+          br
+         each baseitem in baseitems
+          div
+            span.bl_listForm_visitPlace 訪れた場所 #{baseitem} :　
+            input(type="text", name=`subtitle${baseitem}` class="el_textForm el_textForm__subTitle") 
+            br
+            span.bl_listForm_visitTimes 訪問時刻 :　
+            input(type="time", name=`times${baseitem}` class="el_timeForm")
+            br 
+            span 所在地 :　
+            input(type="text", name=`location${baseitem}` class="el_textForm")
+            br
+            span.bl_listForm_pict 写真 :　
+            input(type="file" name=`pict${baseitem}` class="el_fileInput")
+            br
+            span 感想
+            br
+            textarea(name=`impression${baseitem}`  rows="6" cols="50" class="el_textarea")
+            br
+         each joinitem in joinitems
+          div
+            span.bl_listForm_visitPlace 訪れた場所 #{joinitem} :　
+            input(type="text", name=`subtitle${joinitem}` class="el_textForm el_textForm__subTitle") 
+            br
+            span.bl_listForm_visitTimes 訪問時刻 :　
+            input(type="time", name=`times${joinitem}` class="el_timeForm")
+            br 
+            span 所在地 :　
+            input(type="text", name=`location${joinitem}` class="el_textForm")
+            br
+            span.bl_listForm_pict 写真 :　
+            input(type="file" name=`pict${joinitem}` class="el_fileInput")
+            br
+            span 感想
+            br
+            textarea(name=`impression${joinitem}`  rows="6" cols="50" class="el_textarea")
+            br
+          button(type="button" class="el_diarySubItemButton el_diarySubItemButton__add").add-making-diarysubItem 日記を追加
+          button(type="button" class="el_diarySubItemButton el_diarySubItemButton__remove").remove-making-diarysubItem.hide-remove-making-diarysubItem 追加取消
+            br
+         each additem in additems
+          div.hide-making-diarysubItem
+            span.bl_listForm_visitPlace 訪れた場所 #{additem} :　
+            input(type="text", name=`subtitle${additem}` class="el_textForm el_textForm__subTitle") 
+            br
+            span.bl_listForm_visitTimes 訪問時刻 :　　
+            input(type="time", name=`times${additem}` class="el_timeForm")
+            br
+            span 所在地 :　
+            input(type="text", name=`location${additem}` class="el_textForm")
+            br
+            span.bl_listForm_pict 写真 :　
+            input(type="file" name=`pict${additem}` class="el_fileInput")
+            br
+            span 感想
+            br
+            textarea(name=`impression${additem}`  rows="6" cols="50" class="el_textarea")
+            br
+          button(type="button" class="el_diarySubItemButton el_diarySubItemButton__add").add-making-diarysubItem.hide-making-diarysubItem 日記を追加
+          button(type="button" class="el_diarySubItemButton el_diarySubItemButton__remove").remove-making-diarysubItem.hide-remove-making-diarysubItem 追加取消
+         br
+         button(type="submit" class="el_submitButton") 提出

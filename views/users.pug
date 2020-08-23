@@ -1,0 +1,54 @@
+extends layout
+
+block content
+ div(class="ly_headerImg")
+  if user 
+    div.ly_subHeader
+      div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+      div.ly_ancor
+        ul
+          li
+            a(href="/logout") ログアウト
+          li
+            a(href="/diary/new") 日記を作る
+          li
+            a(href="/users") 日記一覧へ
+          li
+            a(href="/list/new") 予定を作る
+  div
+   p.el_listConuter 過去の投稿 全#{length}件
+  div.ly_mainArea
+    div.bl_mainContent
+      div.bl_mainContent_title 日記一覧 
+      each title in titles 
+       div.bl_listMedia
+        img(src=`./images/DSC_3148のコピー2.jpg` class="bl_listMedia_img")
+        div.bl_listMadia_body
+         div.bl_listMedia_body_title #{title.titleName}
+         div.bl_listMedia_body_tripDate 旅行日🕛：#{title.date}
+         button(data-title-id=title.titleId).diary_alter.bl_listMedia_body_showButton.bl_listMedia_buttons_item 詳細を表示
+         button.bl_listMedia_body_editButton.bl_listMedia_buttons_item
+          a(href=`/diary/${title.titleId}/edit`) 編集
+         button.del-diaryItem-temp.bl_listMedia_body_deleteButton.bl_listMedia_buttons_item 削除
+         div.confirm-del-hidden.confirm-cont.bl_listMedia_body_deleteButton_confirm
+          div 投稿を削除します。本当によろしいですか？
+           br
+           button.el_confirmYesButton.el_confirmYesButton__listMedia
+            a(href=`/diary/${title.titleId}/delete?delete=J8bRiFW7tUqgcHNraAgTkP8116KYuMxLIP9VRlRtpu`) はい
+           button.cancel-del-diaryItem.el_confirmNoButton.el_confirmNoButton__listMedia いいえ
+    div.bl_mainContent.bl_mainContent__right
+      div.bl_mainContent_title 日記の詳細
+      div.bl_listDisplay.hidden_display
+        h3.diary-title.bl_listDisplay_title
+        img(src=`./images/DSC_3148のコピー2.jpg` class="bl_listDisplay_img bl_listDisplay_img__diary hidden_display")
+        p.diary-updateAt.bl_listDisplay_updateAt.bl_listDisplay_items
+        p.diary-insertAt.bl_listDisplay_insertAt.bl_listDisplay_items
+        p.diary-date.bl_listDisplay_items
+        p.diary-weather.bl_listDisplay_items
+        - for (var i = 0; i<15 ; i++)
+         h3(class=`sub-title${i+1} bl_listDisplay_subTtl__diary hidden_display`)
+         p(class=`sub-times${i+1} bl_listDisplay_subTimes__diary bl_listDisplay_items hidden_display`)
+         p(class=`sub-location${i+1} bl_listDisplay_subLocation__diary bl_listDisplay_items hidden_display`)
+         div
+          img(src="" alt="No Image" class=`sub-img${i+1} hidden-img bl_listDisplay_img`)
+         p(class=`sub-impression${i+1} bl_listDisplay_subImpression__diary hidden_display`)

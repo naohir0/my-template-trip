@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  if user 
+  p 現在 #{user.username}/#{user.id} でログイン中です
+  div 
+   a(href="/logout") ログアウト
+  div
+   a(href="/diary/new") 日記を作る

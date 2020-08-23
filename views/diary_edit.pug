@@ -1,0 +1,58 @@
+extends layout
+
+block content
+   if user 
+    div.ly_subHeader
+     div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+     div.ly_ancor
+        ul
+          li
+            a(href="/logout") ログアウト
+          li
+            a(href="/diary/new") 日記を作る
+          li
+            a(href="/users") 日記一覧へ
+          li
+            a(href="/list/new") 予定を作る
+   div.ly_listForm
+    div.bl_listFrom
+      div.bl_listForm_title 日記編集フォーム
+      div
+        form(action=`/diary/${title.titleId}/edit?edit=sRN6BiPkt13m3c3QjLWNvNXzVdB3qsJiFKX8ptEAfH` method='post'  encType="multipart/form-data")
+         div
+          span タイトル (文字数制限：24文字) :　
+          input(type="text" name="title" value=title.titleName class="el_textForm")
+          br
+          span 日付(2020/9/20のような形式で記入) :　　 
+          input(type="text", name="date" value=title.date class="el_textForm")
+          br 
+          span.bl_listForm_weather 天気 :　
+          select(name="weather" value=title.weather class="el_selectForm")
+           option 晴れ
+           option 雨
+           option 曇り
+          br
+          span.bl_listForm_radio.bl_listForm_radio__shareDiary この日記を公開する : 
+          input(type="radio", name="share" value="true" class="el_radioButton")
+          span.el_radioAns はい
+          input(type="radio", name="share" value="" class="el_radioButton")
+          span いいえ
+         - for (var i = 0; i<15 ; i++)
+          div
+           span.bl_listForm_visitPlace 訪れた場所 #{i+1} :　
+           input(type="text", name=`subtitle${i+1}` value=subTitleBox[i] class="el_textForm el_textForm__subTitle") 
+           br
+           span.bl_listForm_visitTimes 訪問時刻 :　
+           input(type="time", name=`times${i+1}` value=subTimesbox[i] class="el_timeForm")
+           br 
+           span 所在地 :　
+           input(type="text", name=`location${i+1}` value=subLocation[i] class="el_textForm")
+           br
+           span.bl_listForm_pict 写真 (写真に変更がある場合のみ) :　
+           input(type="file" name=`pict${i+1}` class="el_fileInput")
+           br
+           span 感想
+           br
+           textarea(name=`impression${i+1}`  rows="6" cols="50" class="el_textarea") #{subImpressionBox[i]}
+           br
+         button(type="submit" class="el_submitButton") 提出

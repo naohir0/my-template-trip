@@ -1,0 +1,47 @@
+extends layout
+
+block content
+   if user 
+    div.ly_subHeader
+     div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+     div.ly_ancor
+        ul
+          li
+            a(href="/logout") ログアウト
+          li
+            a(href="/diary/new") 日記を作る
+          li
+            a(href="/users") 日記一覧へ
+          li
+            a(href="/list/new") 予定を作る
+   div.ly_listForm
+    div.bl_listFrom
+      div.bl_listForm_title 予定編集フォーム
+      div
+        form(action=`/list/${listTitle.listItemId}/edit?edit=QxAmQjYmlY2Lza1bbbr2SQAJxY7w9VnjJaVmTxwzfd` method='post' encType="multipart/form-data")
+         div
+          span タイトル (文字数制限：18文字) :　
+          input(type="text" name="listName" value=listTitle.listItemName class="el_textForm")
+          br
+          span 所在地 :　
+          input(type="text", name="listPlace" value=listTitle.listItemPlace class="el_textForm")
+          br 
+          span.bl_listForm_radio 完了 : 
+          input(type="radio", name="done" value="true" class="el_radioButton") 
+          span.el_radioAns はい
+          input(type="radio", name="done" value="" class="el_radioButton")
+          span いいえ
+          br
+          span.bl_listForm_pict 写真 :　
+          input(type="file" name="listPict" class="el_fileInput")
+          br
+          - for (let i=0; i<10 ;i++)
+           span.bl_listForm_todo やりたいこと その#{i+1}
+           br
+           input(type="text", name=`listCommentTitle${i+1}` value=listCommentTitle[i] class="el_textForm el_textForm__subTitle")
+           br
+           span 詳細 :
+           br
+           textarea(name=`listCommentCont${i+1}`, cols="70", rows="5" class="el_textarea") #{listCommentCont[i]}
+           br
+         button(type="submit" class="el_submitButton") 提出

@@ -1,0 +1,73 @@
+extends layout
+
+block content
+  div(class="ly_headerImg")
+  if user 
+    div.ly_subHeader
+      div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+      div.ly_ancor
+        ul
+          li
+            a(href="/logout") ログアウト
+          li
+            a(href="/diary/new") 日記を作る
+          li
+            a(href="/users") 日記一覧へ
+          li
+            a(href="/list/new") 予定を作る
+    div
+     p.el_listConuter 過去の投稿 全#{length}件 完了#{doneListLength}件
+    div.ly_mainArea
+      div.bl_mainContent
+          div.bl_mainContent_title 行きたいところリスト
+          each list in lists
+           if list.done
+            div.list-done.bl_listCard
+             img(src=`./images/upload_list_icon/${list.listItemPict}` class="bl_listCard_img")
+             br
+             h4.bl_listCard_title #{list.listItemName} 
+             div.bl_listCard_updateAt 予定作成日： #{list.updateAt}
+             div.bl_listCard_insertAt 予定更新日： #{list.insertAt}
+             div.bl_listCard_place 所在地： #{list.listItemPlace}
+             div.bl_listCard_buttons
+              button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示する
+              button.bl_listCard_editButton.bl_listCard_buttons_item
+                 a(href=`/list/${list.listItemId}/edit`) この予定を編集する
+              button.del-listItem-temp.bl_listCard_deleteButton.bl_listCard_buttons_item この予定を削除する
+              div.confirm-del-list-hidden.confirm-del-list
+               div この投稿を削除します。本当によろしいですか？
+                button
+                 a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn`) はい
+                button.cancel-del-listItem いいえ
+           else
+            div.bl_listCard
+             img(src=`./images/upload_list_icon/${list.listItemPict}` class="bl_listCard_img")
+             br
+             h4.bl_listCard_title #{list.listItemName} 
+             div.bl_listCard_updateAt 予定作成日： #{list.updateAt}
+             if list.insertAt
+              div.bl_listCard_insertAt 予定更新日： #{list.insertAt}
+             div.bl_listCard_place 所在地： #{list.listItemPlace}
+             div.bl_listCard_buttons
+              button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示する
+              button.bl_listCard_editButton.bl_listCard_buttons_item
+                 a(href=`/list/${list.listItemId}/edit`) この予定を編集する
+              button.del-listItem-temp.bl_listCard_delete.bl_listCard_buttons_item この予定を削除する
+              div.confirm-del-list-hidden.confirm-del-list
+               div.bl_listCard_delete_confirm 投稿を削除します。本当によろしいですか？
+                button.el_confirmYesButton
+                 a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn`) はい
+                button.cancel-del-listItem.el_confirmNoButton いいえ
+      div.bl_mainContent.bl_mainContent__right
+          div.bl_mainContent_title 行きたいところの詳細
+          div.bl_listDisplay.hidden_display
+           h2.list-name.bl_listDisplay_title
+           img(src="" alt="No Image" class="list-pict hidden-img bl_listDisplay_img")
+           p.list-updateAt.bl_listDisplay_updateAt.bl_listDisplay_items 
+           p.list-insertAt.bl_listDisplay_insertAt.bl_listDisplay_items
+           p.list-place.bl_listDisplay_place.bl_listDisplay_items
+           - for (var i = 0; i<10; i++)
+            h3(class=`list-comment-title${i+1} bl_listDisplay_todo hidden_display`)
+            p(class=`list-comment-cont${i+1} bl_listDisplay_todoDetail hidden_display`)
+  else 
+    a(href="/auth/github") githubでログイン

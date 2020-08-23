@@ -1,0 +1,160 @@
+describe('/login',()=>{
+  before(()=>{
+    passportStub.install(app);
+    passportStub.login({username:'testuser',id:'11111'});
+  });
+  after(()=>{
+    passportStub.logout();
+    passportStub.uninstall(app);
+  });
+  it('ログインして自分の名前とIDが表示される',(done)=>{
+    request(app)
+     .get('/users')
+     .expect(/testuser\/11111/)
+     .expect('Content-Type','text/html; charset=utf-8')
+     .expect(200,done)
+  })
+})
+
+describe('/diary',()=>{
+  before(()=>{
+    passportStub.install(app);
+    passportStub.login({username:'testuser',id:'11111'});
+  });
+  after(()=>{
+    passportStub.logout();
+    passportStub.uninstall(app);
+  });
+  it('作成者以外は日記を編集できない',(done)=>{
+    User.upsert({username:'testuser',userId:'0000'}).then(()=>{
+      request(app)
+       .get('/diary/de8beae0-ce65-48b2-aef2-ee066bea817b/edit')
+       .expect(404,done)
+    })
+  });
+  it('作成者以外は日記を編集できない',(done)=>{
+    User.upsert({username:'testuser',userId:'0000'}).then(()=>{
+      request(app)
+      .post('/diary/de8beae0-ce65-48b2-aef2-ee066bea817b/edit?edit=12')
+      .expect(404,done)
+    })
+  });
+  it('作成者以外は日記を削除できない',(done)=>{
+    request(app)
+     .get('/diary/de8beae0-ce65-48b2-aef2-ee066bea817b/delete?delete=12')
+     .expect(404,done)
+  });
+})
+
+describe('本人の投稿',()=>{
+  before(()=>{
+    passportStub.install(app);
+    passportStub.login({username:'naohir0',id:'61265237'});
+  });
+  after(()=>{
+    passportStub.logout();
+    passportStub.uninstall(app);
+  });
+  it('作成者は日記を編集ページを表示できる',(done)=>{
+      request(app)
+       .get('/diary/de8beae0-ce65-48b2-aef2-ee066bea817b/edit')
+       .expect(/投稿フォーム/)
+       .expect(200,done)
+  });
+  it('クエリーパラメーターが異なる場合は日記を編集できない',(done)=>{
+      request(app)
+      .post('/diary/de8beae0-ce65-48b2-aef2-ee066bea817b/edit?edit=10')
+      .expect(400,done)
+  });
+  it('クエリーパラメーターが異なる場合は日記を削除できない',(done)=>{
+      request(app)
+      .get('/diary/de8beae0-ce65-48b2-aef2-ee066bea817b/delete?delete=10')
+      .expect(400,done)
+  });
+  it('作成者は予定を編集ページを表示できる',(done)=>{
+    request(app)
+     .get('/list/0ed67de5-4644-4c42-b6a5-40bb3cae251e/edit')
+     .expect(/投稿フォーム/)
+     .expect(200,done)
+});
+it('クエリーパラメーターが異なる場合は予定を編集できない',(done)=>{
+    request(app)
+    .post('/list/de8beae0-ce65-48b2-aef2-ee066bea817b/edit?edit=12')
+    .expect(400,done)
+});
+it('クエリーパラメーターが異なる場合は予定を削除できない',(done)=>{
+    request(app)
+    .get('/list/de8beae0-ce65-48b2-aef2-ee066bea817b/delete?delete=12')
+    .expect(400,done)
+});
+it('本人は日記を削除できる',(done)=>{
+    request(app)
+    .get('/diary/4fc70bf8-6f42-495b-9329-db9aad44cd6c/delete?delete=12')
+    .expect(302)
+    .end((err,res)=>{
+      if(err){return console.log('ERROR 日記削除実行')}
+      request(app)
+      .get('/users')
+      .expect(/テスト削除日記/)
+      .expect(200)
+      .end((err,res)=>{
+        if(err){
+          console.log('ERROR 日記削除完了')
+          return done(err)
+        } else {
+          return done();
+        }
+      })
+    })
+});
+it('本人は予定を削除できる',(done)=>{
+   request(app)
+   .get('/list/dcaff428-1972-4c2f-93a4-50557cd29e56/delete?delete=10')
+   .expect(302)
+   .end((err,res)=>{
+     if(err){return console.log('ERROR 予定削除実行')}
+     request(app)
+     .get('/list')
+     .expect(/所在地 バングラデシュ/)
+     .expect(/テスト削除/)
+     .expect(/45/)
+     .expect(200)
+     .end((err,res)=>{
+       if(err){
+         console.log('ERROR 予定削除完了')
+         return done(err)
+       } else {
+         return done()
+       }
+     })
+   })
+})
+ });
+
+ describe('/list',()=>{
+  before(()=>{
+    passportStub.install(app);
+    passportStub.login({username:'testuser',id:'11111'});
+  });
+  after(()=>{
+    passportStub.logout();
+    passportStub.uninstall(app);
+  });
+   it('作成者以外は予定編集ページを開くことができない',(done)=>{
+     request(app)
+     .get('/list/0ed67de5-4644-4c42-b6a5-40bb3cae251e/edit')
+     .expect(404,done)
+   });
+   it('作成者以外は予定を編集できない',(done)=>{
+     request(app)
+     .get('/list/0ed67de5-4644-4c42-b6a5-40bb3cae251e/edit?edit=10')
+     .expect(404,done)
+   });
+   it('作成者以外は予定を削除できない',(done)=>{
+     request(app)
+     .get('/list/0ed67de5-4644-4c42-b6a5-40bb3cae251e/delete?delete=10')
+     .expect(404,done)
+   })
+ })
+
+ //削除用日記：de8beae0-ce65-48b2-aef2-ee066bea817b/
