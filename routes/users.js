@@ -8,7 +8,7 @@ var authensure = require('./authensure')
 router.get('/',authensure,(req, res, next)=>{
    Title.findAll({
      where:{postedBy:req.user.id},
-     order:[['"date"','ASC']]
+     order:[['"date"','DESC']]
    }).then((titles)=>{
        const title_length = titles.length
        res.render('users',{

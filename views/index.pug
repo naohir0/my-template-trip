@@ -1,28 +1,13 @@
 extends layout
 
 block content
+  div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").ly_jumbotoron
+   div.ly_jumbotoron_inner
+    div.ly_jumbotoron_inner_title 予定作成機能
+    br
+    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます
   h1= title
   p Welcome to #{title}
   div
     a(href="/auth/github") githubでログイン
-  div
-   ul 
-    each shareTitle in shareTitles
-     li #{shareTitle.titleName}  #{shareTitle.date}
-     p 投稿者 #{shareTitle.postedBy}
-      br
-      button(data-title-id=shareTitle.titleId).shared_diary_alter 詳細を表示
-  div 
-  h3.shared-diary-title
-  p.shared-diary-updateAt 
-  p.shared-diary-insertAt
-  p.shared-diary-date 
-  p.shared-diary-weather
-  - for (var i = 0; i<15 ; i++)
-   h3(class=`shared-sub-title${i+1}`)
-   div
-    img(src="" width="300" height="220" alt="No Image" class=`shared-sub-img${i+1} hidden-img`)
-   p(class=`shared-sub-impression${i+1}`)
-   p(class=`shared-sub-times${i+1}`)
-   p(class=`shared-sub-location${i+1}`)
-
+  

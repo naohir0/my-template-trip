@@ -3,17 +3,24 @@ extends layout
 block content
    if user 
     div.ly_subHeader
-     div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+     div.loginInfo 
+       div 現在 #{user.username} でログイン中です
+       a(href="/logout")
+        span ログアウト
      div.ly_ancor
         ul
           li
-            a(href="/logout") ログアウト
+            a(href="/list")
+             span 予定一覧へ
           li
-            a(href="/diary/new") 日記を作る
+            a(href="/diary/new") 
+             span 日記を作る
           li
-            a(href="/users") 日記一覧へ
+            a(href="/users") 
+             span 日記一覧へ
           li
-            a(href="/list/new") 予定を作る
+            a(href="/share") 
+             span 公開日記
    div.ly_listForm
     div.bl_listFrom
       div.bl_listForm_title 予定編集フォーム

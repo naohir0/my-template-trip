@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").ly_jumbotoron
+   div.ly_jumbotoron_inner
+    div.ly_jumbotoron_inner_title 予定作成機能
+    br
+    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます
+  if user 
+    div.ly_subHeader
+      div.loginInfo 
+       div 現在 #{user.username} でログイン中です
+       a(href="/logout")
+        span ログアウト
+      div.ly_ancor
+        ul
+          li
+            a(href="/users") 
+             span 日記一覧へ
+          li
+            a(href="/diary/new") 
+             span 日記を作る
+          li
+            a(href="/list")
+             span 予定一覧へ
+          li
+            a(href="/list/new")
+             span 予定を作る
+    div.ly_mainArea
+       div.bl_mainContent
+         div.bl_mainContent_title 公開日記一覧
+         each shareTitle in shareTitles
+            div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").bl_bgImgCard.bl_bgImgCard__share
+             div.bl_bgImgCard_body
+              h4.bl_bgImgCard_body_title #{shareTitle.titleName}
+              p.bl_bgImgCard_body_item.bl_bgImgCard_body_item__share 投稿者：#{shareTitle.postedBy}
+              p.bl_bgImgCard_body_item.bl_bgImgCard_body_item__share 旅行日：#{shareTitle.date}
+              p.bl_bgImgCard_body_item.bl_bgImgCard_body_item__share 公開日：#{shareTitle.insertAt}
+              div.bl_bgImgCard_body_buttons
+               button(data-title-id=shareTitle.titleId).shared_diary_alter.bl_listCard_buttons_item.bl_bgImgCard_body_showButton__share 詳細を表示
+       div.bl_mainContent.bl_mainContent__right
+         div.bl_mainContent_title 詳細表示欄
+         div.bl_listDisplay.hidden_display
+           h3.shared-diary-title.bl_listDisplay_title
+           img(src=`./images/DSC_3148のコピー2.jpg` class="bl_listDisplay_img bl_listDisplay_img__diary hidden_display")
+           p.shared-diary-postedBy.bl_listDisplay_items
+           p.shared-diary-date.bl_listDisplay_items
+           p.shared-diary-updateAt.bl_listDisplay_updateAt.bl_listDisplay_items
+           p.shared-diary-insertAt.bl_listDisplay_insertAt.bl_listDisplay_items
+           p.shared-diary-weather.bl_listDisplay_items
+           - for (var i = 0; i<15 ; i++)
+            h3(class=`shared-sub-title${i+1} bl_listDisplay_subTtl__diary hidden_display`)
+            div
+             img(src="" alt="No Image" class=`shared-sub-img${i+1} hidden-img bl_listDisplay_img`)
+            p(class=`shared-sub-times${i+1} bl_listDisplay_subTimes__diary bl_listDisplay_items hidden_display`)
+            p(class=`shared-sub-location${i+1} bl_listDisplay_subLocation__diary bl_listDisplay_items hidden_display`)
+            p(class=`shared-sub-impression${i+1} bl_listDisplay_subImpression__diary hidden_display` style="white-space:pre-wrap;")

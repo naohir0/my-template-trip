@@ -55,6 +55,7 @@ var titleRouter = require('./routes/showDiary');
 var listRouter = require('./routes/list');
 var listAlterRouter = require('./routes/showList');
 var sharedDiaryShowRouter = require('./routes/shared_diary_show');
+var shareDiaryies = require('./routes/share');
 
 var app = express();
 
@@ -83,6 +84,7 @@ app.use('/title',titleRouter);
 app.use('/list',listRouter);
 app.use('/list',listAlterRouter);
 app.use('/shared',sharedDiaryShowRouter);
+app.use('/share',shareDiaryies);
 
 app.get('/auth/github',
 passport.authenticate('github',{scope:['user:email']}),

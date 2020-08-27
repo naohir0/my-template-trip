@@ -1,41 +1,51 @@
 extends layout
 
 block content
- div(class="ly_headerImg")
+  div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").ly_jumbotoron
+   div.ly_jumbotoron_inner
+    div.ly_jumbotoron_inner_title 予定作成機能
+    br
+    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます
   if user 
     div.ly_subHeader
-      div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+      div.loginInfo 
+       div 現在 #{user.username} でログイン中です
+       a(href="/logout")
+        span ログアウト
       div.ly_ancor
         ul
           li
-            a(href="/logout") ログアウト
+            a(href="/diary/new")
+             span 日記を作る
           li
-            a(href="/diary/new") 日記を作る
+            a(href="/list")
+             span 予定一覧へ
           li
-            a(href="/users") 日記一覧へ
+            a(href="/list/new")
+             span 予定を作る
           li
-            a(href="/list/new") 予定を作る
+            a(href="/share")
+             span 公開日記
   div
    p.el_listConuter 過去の投稿 全#{length}件
   div.ly_mainArea
     div.bl_mainContent
       div.bl_mainContent_title 日記一覧 
       each title in titles 
-       div.bl_listMedia
-        img(src=`./images/DSC_3148のコピー2.jpg` class="bl_listMedia_img")
-        div.bl_listMadia_body
-         div.bl_listMedia_body_title #{title.titleName}
-         div.bl_listMedia_body_tripDate 旅行日🕛：#{title.date}
-         button(data-title-id=title.titleId).diary_alter.bl_listMedia_body_showButton.bl_listMedia_buttons_item 詳細を表示
-         button.bl_listMedia_body_editButton.bl_listMedia_buttons_item
+       div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").bl_bgImgCard
+        div.bl_bgImgCard_body
+         div.bl_bgImgCard_body_title #{title.titleName}
+         div.bl_bgImgCard_body_tripDate 旅行日🕛：#{title.date}
+         button(data-title-id=title.titleId).diary_alter.bl_bgImgCard_body_showButton.bl_bgImgCard_body_buttons_item 詳細を表示
+         button.bl_bgImgCard_body_editButton.bl_bgImgCard_body_buttons_item
           a(href=`/diary/${title.titleId}/edit`) 編集
-         button.del-diaryItem-temp.bl_listMedia_body_deleteButton.bl_listMedia_buttons_item 削除
-         div.confirm-del-hidden.confirm-cont.bl_listMedia_body_deleteButton_confirm
+         button.del-diaryItem-temp.bl_listMedia_body_deleteButton.bl_bgImgCard_body_buttons_item 削除
+         div.confirm-del-hidden.confirm-cont.bl_bgImgCard_body_deleteButton_confirm
           div 投稿を削除します。本当によろしいですか？
            br
-           button.el_confirmYesButton.el_confirmYesButton__listMedia
+           button(style="cursor:pointer").el_confirmYesButton.el_confirmYesButton__bgImgCard
             a(href=`/diary/${title.titleId}/delete?delete=J8bRiFW7tUqgcHNraAgTkP8116KYuMxLIP9VRlRtpu`) はい
-           button.cancel-del-diaryItem.el_confirmNoButton.el_confirmNoButton__listMedia いいえ
+           button(style="cursor:pointer").cancel-del-diaryItem.el_confirmNoButton.el_confirmNoButton__bgImgCard いいえ
     div.bl_mainContent.bl_mainContent__right
       div.bl_mainContent_title 日記の詳細
       div.bl_listDisplay.hidden_display
@@ -51,4 +61,4 @@ block content
          p(class=`sub-location${i+1} bl_listDisplay_subLocation__diary bl_listDisplay_items hidden_display`)
          div
           img(src="" alt="No Image" class=`sub-img${i+1} hidden-img bl_listDisplay_img`)
-         p(class=`sub-impression${i+1} bl_listDisplay_subImpression__diary hidden_display`)
+         p(class=`sub-impression${i+1} bl_listDisplay_subImpression__diary hidden_display` style="white-space:pre-wrap;")

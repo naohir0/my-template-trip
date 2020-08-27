@@ -112,7 +112,6 @@ $('.list_alter').each((i,e)=>{
         $('.list-insertAt').text(`予定更新日：${insertAt}`);
         $('.list-place').text(`所在地：${listItemPlace}`);
         $('.list-pict').attr('src',`./images/upload_list_icon/${listItemPict}`);
-        $('.list-comment-title0').text(`やりたいことその1 : ${listCommentTitleBox[0]}`)
       } else {
         $('.bl_listDisplay').addClass('hidden_display');
       }
@@ -123,8 +122,8 @@ $('.list_alter').each((i,e)=>{
       }
       for(let i=0; i<10;i++){
         if(listCommentTitleBox[i]){
-          $(`.list-comment-title${i+1}`).text(`やりたいこと${i+1}：${listCommentTitleBox[i]}`)
-          $(`.list-comment-cont${i+1}`).text(`詳細：${listCommentContBox[i]}`)
+          $(`.list-comment-title${i+1}`).text(`${i+1}　${listCommentTitleBox[i]}`)
+          $(`.list-comment-cont${i+1}`).text(`　${listCommentContBox[i]}`)
           $(`.list-comment-title${i+1}`).removeClass('hidden_display')
           $(`.list-comment-cont${i+1}`).removeClass('hidden_display')
         } else {
@@ -169,20 +168,32 @@ $('.shared_diary_alter').each((i,e)=>{
       const subLocationBox = data.subLocationLine.split('/n');
       const subPictBox = data.subPictLine.split('/n');
 
-      $('.shared-diary-title').text(`タイトル：${titleName}`)
-      $('.shared-diary-updateAt').text(`日記作成日：${updateAt}`)
-      $('.shared-diary-insertAt').text(`日記更新日：${insertAt}`)
-      $('.shared-diary-date').text(`旅行日：${titleDate}`)
-      $('.shared-diary-weather').text(`天気：${titleWeather}`)
+      if(titleName){
+         $('.shared-diary-title').text(`${titleName}`)
+         $('.shared-diary-updateAt').text(`日記作成日：${updateAt}`)
+         $('.shared-diary-insertAt').text(`日記更新日：${insertAt}`)
+         $('.shared-diary-date').text(`旅行日：${titleDate}`)
+         $('.shared-diary-weather').text(`天気：${titleWeather}`)
+         $('.shared-diary-postedBy').text(`投稿者：？？？`)
+         $('.bl_listDisplay_img__diary').removeClass('hidden_display')
+         $('.bl_listDisplay').removeClass('hidden_display')
+      } else {
+        $('.bl_listDisplay_img__diary').addClass('hidden_display')
+        $('.bl_listDisplay').removeClass('hidden_display')
+      }
       
       for(let i=0; i<subTitleBox.length;i++){
        if(subTitleBox[i]){
-         $(`.shared-sub-title${i+1}`).text(`サブタイトル：${subTitleBox[i]}`)
+         $(`.shared-sub-title${i+1}`).text(`${subTitleBox[i]}`)
          $(`.shared-sub-impression${i+1}`).text(`感想：${subImpressionBox[i]}`)
          $(`.shared-sub-times${i+1}`).text(`訪問時刻：${subTimesBox[i]}`)
          $(`.shared-sub-location${i+1}`).text(`場所：${subLocationBox[i]}`)
          $(`.shared-sub-img${i+1}`).attr('src',`./images/upload_img/${subPictBox[i]}`)
          $(`.shared-sub-img${i+1}`).removeClass('hidden-img')
+         $(`.shared-sub-title${i+1}`).removeClass('hidden_display')
+         $(`.shared-sub-impression${i+1}`).removeClass('hidden_display')
+         $(`.shared-sub-times${i+1}`).removeClass('hidden_display')
+         $(`.shared-sub-location${i+1}`).removeClass('hidden_display')
        } else {
         $(`.shared-sub-title${i+1}`).text("")
         $(`.shared-sub-impression${i+1}`).text("")
@@ -190,6 +201,10 @@ $('.shared_diary_alter').each((i,e)=>{
         $(`.shared-sub-location${i+1}`).text("")
         $(`.shared-sub-img${i+1}`).attr('src','')
         $(`.shared-sub-img${i+1}`).addClass('hidden-img')
+        $(`.shared-sub-title${i+1}`).addClass('hidden_display')
+        $(`.shared-sub-impression${i+1}`).addClass('hidden_display')
+        $(`.shared-sub-times${i+1}`).addClass('hidden_display')
+        $(`.shared-sub-location${i+1}`).addClass('hidden_display')
        }
       }
     })

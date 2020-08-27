@@ -19,7 +19,7 @@ router.get('/',authensure,(req,res,next)=>{
       const list_length = lists.length;
       const doneList = lists.filter((c)=>{return c.done !== ''});
       const doneList_length = doneList.length;
-      console.log(doneList)
+      const topImg = lists.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'
       res.render('list',{
         lists:lists,
         user:req.user,
@@ -54,7 +54,7 @@ router.post('/create',authensure,(req,res,next)=>{
     List.create({
       listItemId:listItemId,
       postedBy:req.user.id,
-      listItemName:req.body.listName.slice(0,18),
+      listItemName:req.body.listName.slice(0,20),
       listItemPlace:req.body.listPlace,
       listItemPict:new_iconname,
       done:'',

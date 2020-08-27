@@ -1,29 +1,40 @@
 extends layout
 
 block content
-  div(class="ly_headerImg")
+  div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").ly_jumbotoron
+   div.ly_jumbotoron_inner
+    div.ly_jumbotoron_inner_title 予定作成機能
+    br
+    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます
   if user 
     div.ly_subHeader
-      div.loginInfo 現在 #{user.username}/#{user.id} でログイン中です
+      div.loginInfo 
+       div 現在 #{user.username} でログイン中です
+       a(href="/logout")
+        span ログアウト
       div.ly_ancor
         ul
           li
-            a(href="/logout") ログアウト
+            a(href="/list/new")
+             span 予定を作る
           li
-            a(href="/diary/new") 日記を作る
+            a(href="/users") 
+             span 日記一覧へ
           li
-            a(href="/users") 日記一覧へ
+            a(href="/diary/new") 
+             span 日記を作る
           li
-            a(href="/list/new") 予定を作る
+            a(href="/share") 
+             span 公開日記
     div
      p.el_listConuter 過去の投稿 全#{length}件 完了#{doneListLength}件
     div.ly_mainArea
       div.bl_mainContent
-          div.bl_mainContent_title 行きたいところリスト
+          div.bl_mainContent_title 予定一覧
           each list in lists
            if list.done
             div.list-done.bl_listCard
-             img(src=`./images/upload_list_icon/${list.listItemPict}` class="bl_listCard_img")
+             img(src=`./images/upload_list_icon/${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img")
              br
              h4.bl_listCard_title #{list.listItemName} 
              div.bl_listCard_updateAt 予定作成日： #{list.updateAt}
@@ -32,16 +43,17 @@ block content
              div.bl_listCard_buttons
               button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示する
               button.bl_listCard_editButton.bl_listCard_buttons_item
-                 a(href=`/list/${list.listItemId}/edit`) この予定を編集する
-              button.del-listItem-temp.bl_listCard_deleteButton.bl_listCard_buttons_item この予定を削除する
+                 a(href=`/list/${list.listItemId}/edit`) 予定を編集する
+              button.del-listItem-temp.bl_listCard_deleteButton.bl_listCard_buttons_item 予定を削除する
               div.confirm-del-list-hidden.confirm-del-list
-               div この投稿を削除します。本当によろしいですか？
-                button
+               div.bl_listCard_delete_confirm この投稿を削除します。本当によろしいですか？
+                br
+                button.el_confirmYesButton
                  a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn`) はい
-                button.cancel-del-listItem いいえ
+                button.cancel-del-listItem.el_confirmNoButton いいえ
            else
             div.bl_listCard
-             img(src=`./images/upload_list_icon/${list.listItemPict}` class="bl_listCard_img")
+             img(src=`./images/upload_list_icon/${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img")
              br
              h4.bl_listCard_title #{list.listItemName} 
              div.bl_listCard_updateAt 予定作成日： #{list.updateAt}
@@ -51,15 +63,16 @@ block content
              div.bl_listCard_buttons
               button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示する
               button.bl_listCard_editButton.bl_listCard_buttons_item
-                 a(href=`/list/${list.listItemId}/edit`) この予定を編集する
-              button.del-listItem-temp.bl_listCard_delete.bl_listCard_buttons_item この予定を削除する
+                 a(href=`/list/${list.listItemId}/edit`) 予定を編集する
+              button.del-listItem-temp.bl_listCard_delete.bl_listCard_buttons_item 予定を削除する
               div.confirm-del-list-hidden.confirm-del-list
-               div.bl_listCard_delete_confirm 投稿を削除します。本当によろしいですか？
+               div.bl_listCard_delete_confirm この投稿を削除します。本当によろしいですか？
+                br
                 button.el_confirmYesButton
                  a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn`) はい
                 button.cancel-del-listItem.el_confirmNoButton いいえ
       div.bl_mainContent.bl_mainContent__right
-          div.bl_mainContent_title 行きたいところの詳細
+          div.bl_mainContent_title 予定詳細
           div.bl_listDisplay.hidden_display
            h2.list-name.bl_listDisplay_title
            img(src="" alt="No Image" class="list-pict hidden-img bl_listDisplay_img")
