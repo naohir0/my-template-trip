@@ -105,6 +105,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary_alter').each(function (i, 
       var titleName = data.titleName;
       var titleDate = data.titleDate;
       var titleWeather = data.titleWeather;
+      var topImg = data.topImg;
       var updateAt = data.updateAt;
       var insertAt = data.insertAt;
       var subTitleBox = data.subTitleLine.split('/n');
@@ -119,6 +120,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary_alter').each(function (i, 
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary-insertAt').text("\u65E5\u8A18\u66F4\u65B0\u65E5\uD83D\uDD5C\uFF1A".concat(insertAt));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary-date').text("\u65C5\u884C\u65E5\uD83D\uDD5E\uFF1A".concat(titleDate));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary-weather').text("\u5929\u6C17\uFF1A".concat(titleWeather));
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".bl_listDisplay_img__diary").attr('src', "./images/upload_diary_topImg/".concat(topImg));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay').removeClass('hidden_display');
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay_img__diary').removeClass('hidden_display');
       } else {
@@ -252,6 +254,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared_diary_alter').each(functi
       var titleName = data.titleName;
       var titleDate = data.titleDate;
       var titleWeather = data.titleWeather;
+      var titleContributor = data.contributor;
+      var topImg = data.topImg;
       var updateAt = data.updateAt;
       var insertAt = data.insertAt;
       var subTitleBox = data.subTitleLine.split('/n');
@@ -266,7 +270,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared_diary_alter').each(functi
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-insertAt').text("\u65E5\u8A18\u66F4\u65B0\u65E5\uFF1A".concat(insertAt));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-date').text("\u65C5\u884C\u65E5\uFF1A".concat(titleDate));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-weather').text("\u5929\u6C17\uFF1A".concat(titleWeather));
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-postedBy').text("\u6295\u7A3F\u8005\uFF1A\uFF1F\uFF1F\uFF1F");
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-postedBy').text("\u6295\u7A3F\u8005\uFF1A".concat(titleContributor));
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".bl_listDisplay_img__diary").attr('src', "./images/upload_diary_topImg/".concat(topImg));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay_img__diary').removeClass('hidden_display');
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay').removeClass('hidden_display');
       } else {

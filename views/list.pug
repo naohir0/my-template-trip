@@ -5,7 +5,7 @@ block content
    div.ly_jumbotoron_inner
     div.ly_jumbotoron_inner_title 予定作成機能
     br
-    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます
+    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます。完了した予定は編集ページから完了登録をすることができます。
   if user 
     div.ly_subHeader
       div.loginInfo 
@@ -34,7 +34,9 @@ block content
           each list in lists
            if list.done
             div.list-done.bl_listCard
-             img(src=`./images/upload_list_icon/${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img")
+             span.bl_listCard_badge
+             span.bl_listCard_badge_text 完了
+             img(src=`./images/upload_list_icon/${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img bl_listCard_img__done")
              br
              h4.bl_listCard_title #{list.listItemName} 
              div.bl_listCard_updateAt 予定作成日： #{list.updateAt}
@@ -61,10 +63,10 @@ block content
               div.bl_listCard_insertAt 予定更新日： #{list.insertAt}
              div.bl_listCard_place 所在地： #{list.listItemPlace}
              div.bl_listCard_buttons
-              button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示する
+              button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示
               button.bl_listCard_editButton.bl_listCard_buttons_item
-                 a(href=`/list/${list.listItemId}/edit`) 予定を編集する
-              button.del-listItem-temp.bl_listCard_delete.bl_listCard_buttons_item 予定を削除する
+                 a(href=`/list/${list.listItemId}/edit`) 予定を編集
+              button.del-listItem-temp.bl_listCard_delete.bl_listCard_buttons_item 予定を削除
               div.confirm-del-list-hidden.confirm-del-list
                div.bl_listCard_delete_confirm この投稿を削除します。本当によろしいですか？
                 br
@@ -82,5 +84,6 @@ block content
            - for (var i = 0; i<10; i++)
             h3(class=`list-comment-title${i+1} bl_listDisplay_todo hidden_display`)
             p(class=`list-comment-cont${i+1} bl_listDisplay_todoDetail hidden_display`)
-  else 
-    a(href="/auth/github") githubでログイン
+  div.ly_footer
+    div.ly_footer_inner_top トップへ
+    div.ly_footer_inner_contentTop 予定トップへ

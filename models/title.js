@@ -11,6 +11,10 @@ const Title = loader.database.define('Title',{
     type:Sequelize.INTEGER,
     allowNull:false
   },
+  contributor:{
+    type:Sequelize.STRING,
+    allowNull:false
+  },
   titleName:{
    type:Sequelize.STRING,
    allowNull:false
@@ -19,6 +23,9 @@ const Title = loader.database.define('Title',{
     type:Sequelize.STRING
   },
   weather:{
+    type:Sequelize.STRING
+  },
+  topImg:{
     type:Sequelize.STRING
   },
   share:{

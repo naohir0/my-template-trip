@@ -29,6 +29,16 @@ router.post('/create',authensure,(req,res,next)=>{
    var newIconNameBox = [];
    console.log(req.files);
    if(req.files){
+     if(req.files.topImg){
+       var top_icon_ext = path.extname(req.files.topImg.name);
+       var top_new_iconname = time + req.files.topImg.md5 + top_icon_ext;
+       var target_path_top = 'public/images/upload_diary_topImg/' + top_new_iconname;
+       fs.writeFileSync(target_path_top,req.files.topImg.data)
+     } else {
+       var top_new_iconname = '';
+     }
+   }
+   if(req.files){
    const fileDataBox = [req.files.pict1,req.files.pict2,req.files.pict3,req.files.pict4,req.files.pict5,req.files.pict6,req.files.pict7,req.files.pict8,req.files.pict9,req.files.pict10,req.files.pict11,req.files.pict12,req.files.pict13,req.files.pict14,req.files.pict15];
    for(let i=0; i<15; i++){
      if(fileDataBox[i]){
@@ -53,8 +63,10 @@ router.post('/create',authensure,(req,res,next)=>{
           titleId:titleId,
           titleName:req.body.title.slice(0,24),
           postedBy:req.user.id,
+          contributor:req.user.username,
           date:req.body.date.slice(0,12),
           weather:req.body.weather,
+          topImg:top_new_iconname,
           share:"",
           updateAt:updateAt,
           insertAt:""
@@ -126,13 +138,29 @@ router.post('/:titleId/edit',authensure,(req,res,next)=>{
     if(isMine(req,title)){
     if(req.query.edit === 'sRN6BiPkt13m3c3QjLWNvNXzVdB3qsJiFKX8ptEAfH') {
       const now = new Date();
+      const times = now.toFormat('YYYYMMDDHH24MISS');
       const insertAt = now.toFormat('YYYY  MM/DD  HH24:MI');
+      var top_new_iconname = '';
+      if(req.files){
+        if(req.files.topImg){
+          var top_icon_ext = path.extname(req.files.topImg.name);
+          top_new_iconname = times + req.files.topImg.md5 + top_icon_ext;
+          var target_path_top = 'public/images/upload_diary_topImg/' + top_new_iconname;
+          fs.writeFileSync(target_path_top,req.files.topImg.data)
+        } else {
+          top_new_iconname = title.topImg;
+        }
+      } else {
+        top_new_iconname = title.topImg;
+      }
       Title.upsert({
         titleId:title.titleId,
         titleName:req.body.title.slice(0,24),
         postedBy:title.postedBy,
+        contributor:title.contributor,
         date:req.body.date.slice(0,12),
         weather:req.body.weather,
+        topImg:top_new_iconname,
         share:req.body.share,
         updateAt:title.updateAt,
         insertAt:insertAt

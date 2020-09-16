@@ -11,6 +11,7 @@ $('.diary_alter').each((i,e)=>{
       const titleName = data.titleName;
       const titleDate = data.titleDate;
       const titleWeather = data.titleWeather;
+      const topImg = data.topImg;
       const updateAt = data.updateAt;
       const insertAt = data.insertAt;
       const subTitleBox = data.subTitleLine.split('/n');
@@ -24,6 +25,7 @@ $('.diary_alter').each((i,e)=>{
         $('.diary-insertAt').text(`日記更新日🕜：${insertAt}`)
         $('.diary-date').text(`旅行日🕞：${titleDate}`)
         $('.diary-weather').text(`天気：${titleWeather}`)
+        $(`.bl_listDisplay_img__diary`).attr('src',`./images/upload_diary_topImg/${topImg}`)
         $('.bl_listDisplay').removeClass('hidden_display')
         $('.bl_listDisplay_img__diary').removeClass('hidden_display')
       } else {
@@ -160,6 +162,8 @@ $('.shared_diary_alter').each((i,e)=>{
       const titleName = data.titleName;
       const titleDate = data.titleDate;
       const titleWeather = data.titleWeather;
+      const titleContributor = data.contributor;
+      const topImg = data.topImg;
       const updateAt = data.updateAt;
       const insertAt = data.insertAt;
       const subTitleBox = data.subTitleLine.split('/n');
@@ -174,7 +178,8 @@ $('.shared_diary_alter').each((i,e)=>{
          $('.shared-diary-insertAt').text(`日記更新日：${insertAt}`)
          $('.shared-diary-date').text(`旅行日：${titleDate}`)
          $('.shared-diary-weather').text(`天気：${titleWeather}`)
-         $('.shared-diary-postedBy').text(`投稿者：？？？`)
+         $('.shared-diary-postedBy').text(`投稿者：${titleContributor}`)
+         $(`.bl_listDisplay_img__diary`).attr('src',`./images/upload_diary_topImg/${topImg}`)
          $('.bl_listDisplay_img__diary').removeClass('hidden_display')
          $('.bl_listDisplay').removeClass('hidden_display')
       } else {

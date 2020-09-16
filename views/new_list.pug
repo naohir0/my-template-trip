@@ -2,7 +2,7 @@ extends layout
 
 block content
   if user 
-    div.ly_subHeader
+    div.ly_subHeader.ly_subHeader_form
      div.loginInfo
       div 現在 #{user.username} でログイン中です
       a(href="/logout")

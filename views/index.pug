@@ -1,13 +1,37 @@
 extends layout
 
 block content
-  div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").ly_jumbotoron
-   div.ly_jumbotoron_inner
-    div.ly_jumbotoron_inner_title 予定作成機能
-    br
-    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます
-  h1= title
-  p Welcome to #{title}
-  div
-    a(href="/auth/github") githubでログイン
-  
+  div.slideShow
+    div(style="background-image: url('../images/11162.jpg')").ly_jumbotoron.ly_jumbotoron_top.slideShow_jumbotoron
+     div.ly_jumbotoron_inner.ly_jumbotoron_inner_top
+      div.ly_jumbotoron_inner_title あなたの旅の予習から復習まで
+      br
+      div.ly_jumbotoron_inner_cont 「旅行の思い出をまとめたいけど、日記ってどうやって書いたらいいのかわからない」という疑問から作成しました。型による予定と日記の作成で旅の予習から復習までを一人で管理できます。
+    div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").ly_jumbotoron.slideShow_jumbotoron
+     div.ly_jumbotoron_inner
+      div.ly_jumbotoron_inner_title 予定作成機能
+      br
+      div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます。予定の詳細はテンプレートを埋めることでまとめることができます。
+    div(style="background-image: url('../images/11148.jpg')").ly_jumbotoron.ly_jumbotoron_diaryCreate.slideShow_jumbotoron
+     div.ly_jumbotoron_inner.ly_jumbotoron_inner_diaryCreate
+      div.ly_jumbotoron_inner_title 日記作成機能
+      br
+      div.ly_jumbotoron_inner_cont テンプレートを埋めるだけであなたの旅の日記を手軽に作成できます。作成した日記はカード形式で一覧表示されます。日記の詳細は同じページに表示されるので「新しいページを開く」といった手間がかかりません。
+    div(style="background-image: url('../images/11147.jpg')").ly_jumbotoron.slideShow_jumbotoron
+     div.ly_jumbotoron_inner.ly_jumbotoron_inner_share
+      div.ly_jumbotoron_inner_title 日記公開機能
+      br
+      div.ly_jumbotoron_inner_cont 作成した日記を自分だけではなく、他のユーザーともシェアすることができます。
+    div(style="background-image: url('../images/11150.jpg')").ly_jumbotoron.slideShow_jumbotoron
+     div.ly_jumbotoron_inner.ly_jumbotoron_inner_account
+      div.ly_jumbotoron_inner_title GitHubによるアカウント管理
+      br
+      div.ly_jumbotoron_inner_cont アカウント管理はGitHubによるものであり、安全にアカウントを利用することができます。
+  div.ly_login
+   div.ly_login_note GitHubのアカウントをお持ちでないかたは、はじめに右側の「はじめてご利用の方」からGitHubのアカウントを作成してください。
+   div.ly_login_inner
+    a(href="/auth/github") GitHubでログイン
+   div.ly_login_inner
+    a(href="https://github.co.jp") はじめてご利用の方
+  div.ly_footer
+    div.ly_footer_inner TOPへ

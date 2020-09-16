@@ -49,15 +49,13 @@ header {
   text-align:center;
   height:200px;
   font-size:120px;
-  padding:40px auto;
+  padding-top:30px;
 }
-
-.ly_headerImg {
-  background-image: url('./images/DSC_3148のコピー2.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 500px;
-  margin-top: 10px;
+header > span {
+  display: inline-block;
+  padding-left:10px;
+  padding-right:10px;
+  font-family: 'Dotum';
 }
 
 .ly_jumbotoron {
@@ -96,11 +94,126 @@ header {
   font-weight: 600;
 }
 
+.slideShow {
+  cursor: pointer;
+}
+
+.ly_jumbotoron.slideShow_jumbotoron {
+  display:none;
+}
+
+
+.ly_jumbotoron.ly_jumbotoron_top {
+  background-position-x: right;
+}
+.ly_jumbotoron_inner.ly_jumbotoron_inner_top {
+  background-color: rgb(255, 187, 39);
+}
+.ly_jumbotoron.ly_jumbotoron_diaryCreate {
+  background-position-x: right;
+  background-position-y:70%;
+
+}
+.ly_jumbotoron_inner.ly_jumbotoron_inner_diaryCreate {
+  background-color: rgb(4, 252, 25);
+}
+.ly_jumbotoron_inner.ly_jumbotoron_inner_share {
+  background-color: rgb(12, 248, 224);
+}
+.ly_jumbotoron_inner.ly_jumbotoron_inner_account {
+  background-color: rgb(250, 6, 6);
+  opacity:0.75
+}
+
+/* トップページ ログイン部分のCSS */
+.ly_login {
+  background-color: rgb(228, 225, 225);
+  height:200px;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-bottom: 40px;
+}
+.ly_login_note {
+  font-size:1.5em;
+  text-align: left;
+  padding-top:20px;
+  width:80%;
+  margin-left:10%;
+}
+.ly_login_inner {
+  background-color: black;
+  font-size:2.5em;
+  display:inline-block;
+  width:40%;
+  margin-top:20px;
+  margin-left:5%;
+  margin-right: 5%;
+  padding-top:15px;
+  padding-bottom: 15px;
+  text-align: center;
+  border-radius:.5em;
+  opacity:0.8;
+}
+.ly_login_inner > a {
+  color:yellow;
+  text-decoration: none;
+}
+.ly_login_inner > a:hover {
+  color: #00B7FF;
+  text-decoration: underline;
+}
+/* フッターのCSS */
+.ly_footer {
+  background-color: rgb(228, 225, 225);
+  height:150px;
+}
+.ly_footer_inner {
+  text-align:center;
+  display: inline-block;
+  font-size:1.5em;
+  border:solid black 3px;
+  width:60%;
+  height:1.5em;
+  margin-left:20%;
+  margin-top:30px;
+  padding-top:5px;
+  padding-bottom:5px;
+  cursor:pointer;
+}
+
+.ly_footer_inner_top {
+  text-align:center;
+  display: inline-block;
+  font-size:1.5em;
+  border:solid black 3px;
+  width:30%;
+  margin-left:11%;
+  margin-top:30px;
+  padding-top:5px;
+  padding-bottom: 5px;
+  cursor:pointer;
+}
+.ly_footer_inner_contentTop {
+  text-align:center;
+  display: inline-block;
+  font-size:1.5em;
+  border:solid black 3px;
+  width:36%;
+  margin-left:11%;
+  margin-top:30px;
+  cursor:pointer;
+  padding-top:5px;
+  padding-bottom: 5px;
+}
+
 /* 全体共通のリンク部分のCSS */
 
 .ly_subHeader {
   background-color: rgb(228, 225, 225);
   padding-top:10px;
+}
+.ly_subHeader_form {
+  margin-top:10px;
 }
 .loginInfo {
   font-size: 2em;
@@ -228,23 +341,52 @@ header {
   background-color: white;
   position:relative;
   top:0%;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
   margin-left: .5%;
   margin-right: .5%;
   padding-bottom:1.5rem;
   border:black 1px solid;
   height:600px;
-}
-
-.bl_listCard:nth-child(even) {
-  float:right;
+  box-shadow: 0px 15px 10px 0px rgba(0,0,0,0.4);
 }
 
 .bl_listCard:nth-child(odd) {
+  float:right;
+}
+
+.bl_listCard:nth-child(even) {
   float:left;
 }
 
+.bl_listCard_badge {
+  position: relative;
+  top:-146px;
+  opacity: .7;
+}
+.bl_listCard_badge::after {
+  position: absolute;
+  content:'';
+  z-index:1;
+  top:0;
+  left:0;
+  width:0;
+  height:0;
+  border-width:90px 90px 0 0;
+  border-style:solid;
+  border-color:red transparent transparent transparent;
+}
+
+.bl_listCard_badge_text {
+  z-index:2;
+  top:10px;
+  left:8px;
+  font-size:25px;
+  font-weight: 900;
+  color:rgb(255, 255, 220);
+  position:absolute;
+  transform:rotate(-45deg);
+}
 
 .bl_listCard_img {
   width:100%;
@@ -252,6 +394,8 @@ header {
   margin-top:0%;
   margin-left:0%;
 }
+
+
 
 .bl_listCard_title {
   text-align: center;
@@ -295,13 +439,23 @@ header {
 .bl_listCard_editButton > a {
   text-decoration: none;
   color: black;
+  width:100%;
+  display: inline-block;
 }
 
 .bl_listCard_buttons_item:hover {
   color:blue;
+  border-color:transparent;
+}
+.bl_listCard_buttons_item > a:hover {
+  color:blue;
+}
+
+.bl_listCard_buttons_item:active {
+  color:blue;
   border-color:blue;
 }
-.bl_listCard_buttons_item:hover > a {
+.bl_listCard_buttons_item > a:active {
   color:blue;
 }
 
@@ -482,12 +636,20 @@ header {
 .el_submitButton {
   font-size:2rem;
   background-color: orange;
+  color:white;
   padding:.2em 2em;
   width:40%;
   margin-left: 30%;
   margin-bottom:30px;
   pointer-events: auto;
   cursor:pointer;
+  border:2px transparent solid;
+}
+.el_submitButton:hover {
+  background-color: rgb(255, 255, 255);
+  border:2px orange solid;
+  color:orange;
+  font-weight: 800;
 }
 .bl_listForm_radio {
   display: inline-block;
@@ -543,11 +705,27 @@ header {
 
 .el_diarySubItemButton.el_diarySubItemButton__add {
   background-color: rgb(164, 212, 66);
+  border:2px solid transparent;
+  color:white;
 }
 .el_diarySubItemButton.el_diarySubItemButton__remove {
   background-color: rgb(218, 70, 90);
   color:white;
+  border:2px solid transparent;
 }
+.el_diarySubItemButton.el_diarySubItemButton__add:hover {
+  border:2px solid rgb(164, 212, 66);
+  background-color: white;
+  color:rgb(164, 212, 66);
+  font-weight:800;
+}
+.el_diarySubItemButton.el_diarySubItemButton__remove:hover {
+  border:2px solid rgb(218, 70, 90);
+  background-color: white;
+  color:rgb(218, 70, 90);
+  font-weight:800;
+}
+
 
 /* diary_edit.pug */
 .bl_listForm_radio__shareDiary {
@@ -559,7 +737,7 @@ header {
 .bl_bgImgCard {
   width: 96%;
   margin-left:2%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   margin-top:20px;
   height:250px;
   border:solid black 1px;
@@ -568,6 +746,7 @@ header {
   background-color:rgba(255,255,255,0.6);
   background-blend-mode:lighten;
   background-position: center center;
+  box-shadow: 3px 10px 10px 0px rgb(41, 41, 41);
 }
 
 .bl_bgImgCard_body {
@@ -586,6 +765,7 @@ header {
   padding-bottom:5px;
   text-align: center;
   width:94%;
+  
 }
 
 .bl_bgImgCard_body_tripDate {
@@ -609,13 +789,19 @@ header {
    font-weight: 600;
    cursor:pointer;
    border:solid 2px transparent;
+   box-shadow: 3px 10px 10px 0px rgb(44, 44, 44) ;
+}
+
+.bl_bgImgCard_body_buttons_item:active {
+  -webkit-transform: translateY(5px);
+  transform:translateY(5px);
+  box-shadow:2px 7px 10px 0px rgb(44, 44, 44);
 }
 
 .bl_bgImgCard_body_buttons_item:hover {
-  border-color: blue;
   color:blue;
 }
-.bl_bgImgCard_body_buttons_item:hover > a {
+.bl_bgImgCard_body_buttons_item > a:hover {
   color:blue;
 }
 
@@ -625,7 +811,10 @@ header {
 
 .bl_bgImgCard_body_editButton > a {
   color:black;
+  background-color: transparent;
   text-decoration: none;
+  width:100%;
+  display:inline-block;
 }
 
 .bl_bgImgCard_body_deleteButton_confirm {
@@ -667,8 +856,8 @@ header {
 .bl_listDisplay_subTimes__diary, .bl_listDisplay_subLocation__diary {
   background-color: rgb(64, 241, 10);
   text-align: center;
-  width:60%;
-  margin-left: 40%;
+  width:70%;
+  margin-left: 30%;
   padding-top:15px;
   padding-bottom: 15px;
   font-weight: 600;
@@ -695,16 +884,29 @@ header {
 
 .bl_bgImgCard__share {
   height:320px;
+  margin-bottom:25px;
+  box-shadow: 3px 13px 13px 0px rgb(41, 41, 41);
 }
 
 .bl_bgImgCard_body_showButton__share {
-  background-color:rgb(160, 241, 10);
+  background-color:rgb(255, 166, 1);
   width:50%;
   margin-left: 25%;
   font-size:17px;
+  position:relative;
+  box-shadow: 3px 10px 10px 0px rgb(44, 44, 44) ;
 }
 .bl_bgImgCard_body_showButton__share:hover {
-  border-color: rgb(25, 150, 252);
+  text-shadow: -18px 0px 20px rgb(255, 255, 255),
+  18px 0px 20px rgb(253, 253, 251);
+  color:black;
+  border-color:transparent;
+}
+
+.bl_bgImgCard_body_showButton__share:active {
+-webkit-transform: translateY(6px);
+  transform: translateY(6px);
+  box-shadow: 3px 0px 10px rgba(46, 46, 46, 0.29);
 }
 
 .bl_bgImgCard_body_item__share {
@@ -714,18 +916,6 @@ header {
 
 .bl_listCard_insertAt__share {
   margin-bottom: 5px;
-}
-
-.bl_listCard_showButton__share {
-  background-color:rgb(64, 241, 10);
-  width:50%;
-  margin-left: 25%;
-  font-size:17px;
-}
-
-.bl_listCard_showButton__share:hover {
-  border-color: rgb(25, 150, 252);
-  
 }
 
 
@@ -750,6 +940,17 @@ header {
   .bl_listCard_buttons_item.bl_bgImgCard_body_showButton__share{
     width:50%;
   }
+  .bl_listCard_badge {
+    top:-226px;
+  }
+  .bl_listCard_badge::after {
+    border-width:120px 120px 0 0;
+  }
+  
+  .bl_listCard_badge_text {
+    top:13.3px;
+    left:11.3px;
+  }
 }
 @media screen and (max-width: 600px){
   .bl_listCard {
@@ -759,6 +960,17 @@ header {
   }
   .bl_listCard_img {
     height: 220px;
+  }
+  .bl_listCard_badge {
+    top:-206px;
+  }
+  .bl_listCard_badge::after {
+    border-width:108px 108px 0 0;
+  }
+  
+  .bl_listCard_badge_text {
+    top:12px;
+    left:10px;
   }
 }
 
@@ -831,6 +1043,23 @@ header {
   }
 }
 
+/* 全体　ヘッダーのメディアクエリー */
+@media screen and (max-width:975px){
+  header {
+    text-align:center;
+    height:140px;
+    font-size:80px;
+    font-weight: 500;
+    padding-top:40px;
+  }
+}
+@media screen and (max-width:675px){
+  header {
+    font-size:50px;
+    height:100px;
+    padding-top:30px;
+  }
+}
 
 /* 全体　ジャンボトロンのメディアクエリー */
 @media screen and (max-width:1004px) {
@@ -846,7 +1075,13 @@ header {
 
 @media screen and (max-width:780px) {
   .ly_jumbotoron {
-    height: 450px;
+    height: 300px;
+    display: inline-block;
+    padding-top:300px;
+  }
+  .ly_jumbotoron_inner.ly_jumbotoron_inner_diaryCreate {
+    display: inline-block;
+    margin-top:90px;
   }
 }
 
@@ -857,6 +1092,19 @@ header {
     padding-right:2%;
     width:90%;
     margin-left:3%;
+  }
+}
+
+/* トップページ ログイン部分のメディアクエリー */
+@media screen and (max-width:930px) {
+  .ly_login {
+    padding-bottom:20px;
+  }
+  .ly_login_inner {
+    font-size:1.2em;
+  }
+  .ly_login_note {
+    font-size:1em;
   }
 }
 

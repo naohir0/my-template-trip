@@ -2,7 +2,7 @@ extends layout
 
 block content
    if user 
-    div.ly_subHeader
+    div.ly_subHeader.ly_subHeader_form
      div.loginInfo 
        div 現在 #{user.username} でログイン中です
        a(href="/logout")
@@ -39,6 +39,9 @@ block content
            option 雨
            option 曇り
           br
+          span.bl_listForm_pict トップ画像 :　
+            input(type="file" name='topImg' class="el_fileInput")
+            br
          each baseitem in baseitems
           div
             span.bl_listForm_visitPlace 訪れた場所 #{baseitem} :　

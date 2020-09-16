@@ -1,11 +1,11 @@
 extends layout
 
 block content
-  div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").ly_jumbotoron
-   div.ly_jumbotoron_inner
-    div.ly_jumbotoron_inner_title 予定作成機能
-    br
-    div.ly_jumbotoron_inner_cont 予定作成機能により、いつか行ってみたいと思っているところを整理することができます
+  div(style="background-image: url('../images/11148.jpg')").ly_jumbotoron.ly_jumbotoron_diaryCreate
+    div.ly_jumbotoron_inner.ly_jumbotoron_inner_diaryCreate
+      div.ly_jumbotoron_inner_title 日記作成機能
+      br
+      div.ly_jumbotoron_inner_cont テンプレートを埋めるだけであなたの旅の日記を手軽に作成できます。作成した日記はカード形式で一覧表示されます。日記の詳細は同じページに表示されるので「新しいページを開く」といった手間がかかりません
   if user 
     div.ly_subHeader
       div.loginInfo 
@@ -32,7 +32,7 @@ block content
     div.bl_mainContent
       div.bl_mainContent_title 日記一覧 
       each title in titles 
-       div(style="background-image: url('../images/DSC_3148のコピー2.jpg')").bl_bgImgCard
+       div(style="background-image: url(" + `../images/upload_diary_topImg/${title.topImg}` + ")").bl_bgImgCard
         div.bl_bgImgCard_body
          div.bl_bgImgCard_body_title #{title.titleName}
          div.bl_bgImgCard_body_tripDate 旅行日🕛：#{title.date}
@@ -50,15 +50,18 @@ block content
       div.bl_mainContent_title 日記の詳細
       div.bl_listDisplay.hidden_display
         h3.diary-title.bl_listDisplay_title
-        img(src=`./images/DSC_3148のコピー2.jpg` class="bl_listDisplay_img bl_listDisplay_img__diary hidden_display")
+        img(src="" class="bl_listDisplay_img bl_listDisplay_img__diary hidden_display")
         p.diary-updateAt.bl_listDisplay_updateAt.bl_listDisplay_items
         p.diary-insertAt.bl_listDisplay_insertAt.bl_listDisplay_items
         p.diary-date.bl_listDisplay_items
         p.diary-weather.bl_listDisplay_items
         - for (var i = 0; i<15 ; i++)
          h3(class=`sub-title${i+1} bl_listDisplay_subTtl__diary hidden_display`)
-         p(class=`sub-times${i+1} bl_listDisplay_subTimes__diary bl_listDisplay_items hidden_display`)
-         p(class=`sub-location${i+1} bl_listDisplay_subLocation__diary bl_listDisplay_items hidden_display`)
          div
           img(src="" alt="No Image" class=`sub-img${i+1} hidden-img bl_listDisplay_img`)
+         p(class=`sub-times${i+1} bl_listDisplay_subTimes__diary bl_listDisplay_items hidden_display`)
+         p(class=`sub-location${i+1} bl_listDisplay_subLocation__diary bl_listDisplay_items hidden_display`)
          p(class=`sub-impression${i+1} bl_listDisplay_subImpression__diary hidden_display` style="white-space:pre-wrap;")
+  div.ly_footer
+    div.ly_footer_inner_top トップへ
+    div.ly_footer_inner_contentTop 日記トップへ

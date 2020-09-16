@@ -26,9 +26,11 @@ router.post('/:listId/alter/d',authensure,(req,res,next)=>{
       listCommentCont += listComs[i].listCommentCont;
       listCommentCont += '/n'
     }
+    if(listComs.length-1 >= 0){
     listCommentTitle += listComs[listComs.length-1].listCommentTitle;
     listCommentCont += listComs[listComs.length-1].listCommentCont;
     console.log('リストコンテンツ : '+listComs[0].listCommentTitle);
+    }
     res.json({status:'OK',listItemName:listItemName,listItemPlace:listItemPlace,listItemPict:listItemPict,updateAt:updateAt,insertAt:insertAt,listCommentTitle:listCommentTitle,listCommentCont:listCommentCont});
   })
  })
