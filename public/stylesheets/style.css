@@ -45,17 +45,25 @@ a {
 /* ヘッダーのCSS */
 
 header {
-  background-color: rgb(228, 225, 225);
+  background: -moz-linear-gradient(to bottom,lime,rgb(79, 201, 79) 40%,rgb(135, 180, 135) 80%,white); 
+  background: -webkit-linear-gradient(to bottom,lime,rgb(79, 201, 79) 40%,rgb(135, 180, 135) 80%,white); 
+  background: linear-gradient(to bottom,lime,rgb(79, 201, 79) 40%,rgb(135, 180, 135) 80%,white); 
   text-align:center;
   height:200px;
-  font-size:100px;
-  padding-top:40px;
+  font-size:70px;
+  font-weight:800;
+  padding-top:50px;
 }
 header > span {
   display: inline-block;
   padding-left:10px;
   padding-right:10px;
   font-family: 'Dotum';
+}
+
+header > .bl_header_firstSpan {
+   color:rgb(245, 123, 8);
+   text-shadow: 5px 5px 5px black;
 }
 
 .ly_jumbotoron {
@@ -108,6 +116,8 @@ header > span {
 }
 .ly_jumbotoron_inner.ly_jumbotoron_inner_top {
   background-color: rgb(255, 187, 39);
+  width:46%;
+  margin-top:10px;
 }
 .ly_jumbotoron.ly_jumbotoron_diaryCreate {
   background-position-x: right;
@@ -121,8 +131,8 @@ header > span {
   background-color: rgb(12, 248, 224);
 }
 .ly_jumbotoron_inner.ly_jumbotoron_inner_account {
-  background-color: rgb(250, 6, 6);
-  opacity:0.75
+  background-color: rgb(255, 53, 53);
+  opacity:0.65
 }
 
 /* トップページ ログイン部分のCSS */
@@ -1048,16 +1058,16 @@ header > span {
   header {
     text-align:center;
     height:140px;
-    font-size:80px;
-    font-weight: 500;
+    font-size:50px;
+    font-weight: 700;
     padding-top:40px;
   }
 }
-@media screen and (max-width:675px){
+@media screen and (max-width:695px){
   header {
-    font-size:50px;
+    font-size:30px;
     height:100px;
-    padding-top:30px;
+    padding-top:40px;
   }
 }
 
