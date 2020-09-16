@@ -190,7 +190,7 @@ $('.shared_diary_alter').each((i,e)=>{
       for(let i=0; i<subTitleBox.length;i++){
        if(subTitleBox[i]){
          $(`.shared-sub-title${i+1}`).text(`${subTitleBox[i]}`)
-         $(`.shared-sub-impression${i+1}`).text(`感想：${subImpressionBox[i]}`)
+         $(`.shared-sub-impression${i+1}`).text(`${subImpressionBox[i]}`)
          $(`.shared-sub-times${i+1}`).text(`訪問時刻：${subTimesBox[i]}`)
          $(`.shared-sub-location${i+1}`).text(`場所：${subLocationBox[i]}`)
          $(`.shared-sub-img${i+1}`).attr('src',`./images/upload_img/${subPictBox[i]}`)

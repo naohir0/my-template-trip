@@ -282,7 +282,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared_diary_alter').each(functi
       for (var _i3 = 0; _i3 < subTitleBox.length; _i3++) {
         if (subTitleBox[_i3]) {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-title".concat(_i3 + 1)).text("".concat(subTitleBox[_i3]));
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-impression".concat(_i3 + 1)).text("\u611F\u60F3\uFF1A".concat(subImpressionBox[_i3]));
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-impression".concat(_i3 + 1)).text("".concat(subImpressionBox[_i3]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-times".concat(_i3 + 1)).text("\u8A2A\u554F\u6642\u523B\uFF1A".concat(subTimesBox[_i3]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-location".concat(_i3 + 1)).text("\u5834\u6240\uFF1A".concat(subLocationBox[_i3]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-img".concat(_i3 + 1)).attr('src', "./images/upload_img/".concat(subPictBox[_i3]));
