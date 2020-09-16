@@ -1,0 +1,7 @@
+{
+  "name": "my-template-trip",
+  "description": "旅行作成くん",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
