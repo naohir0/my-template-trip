@@ -4,6 +4,8 @@ const authensure = require('./authensure');
 const uuid = require('uuid');
 const fs = require('fs');
 const path = require('path');
+const csrf = require('csurf');
+const csrfProtection = csrf({cookie:true});
 
 require('date-utils');
 
@@ -29,15 +31,16 @@ router.get('/',authensure,(req,res,next)=>{
     })
 });
 
-router.get('/new',authensure,(req,res,next)=>{
+router.get('/new',authensure,csrfProtection,(req,res,next)=>{
     const listComments = [1,2,3,4,5,6,7,8,9,10];
     res.render('new_list',{
       listComments:listComments,
-      user:req.user
+      user:req.user,
+      csrfToken:req.csrfToken()
     })
 })
 
-router.post('/create',authensure,(req,res,next)=>{
+router.post('/create',authensure,csrfProtection,(req,res,next)=>{
     const listItemId = uuid.v4();
     const now = new Date();
     const updateAt = now.toFormat('YYYY  MM/DD  HH24:MI');
@@ -78,7 +81,7 @@ router.post('/create',authensure,(req,res,next)=>{
     })
 })
 
-router.get('/:listId/edit',authensure,(req,res,next)=>{
+router.get('/:listId/edit',authensure,csrfProtection,(req,res,next)=>{
     const listId = req.params.listId;
     console.log("パラメーター" + listId);
     List.findById(listId).then((list)=>{
@@ -102,7 +105,8 @@ router.get('/:listId/edit',authensure,(req,res,next)=>{
             listTitle:list,
             listCommentTitle:listCommentTitleBox,
             listCommentCont:listCommentContBox,
-            user:req.user
+            user:req.user,
+            csrfToken:req.csrfToken()
           })
         })
       } else {
@@ -113,7 +117,7 @@ router.get('/:listId/edit',authensure,(req,res,next)=>{
     })
 });
 
-router.post('/:listId/edit',authensure,(req,res,next)=>{
+router.post('/:listId/edit',authensure,csrfProtection,(req,res,next)=>{
    const listId = req.params.listId;
    List.findById(listId).then((list)=>{
      if(isMine(req,list)){

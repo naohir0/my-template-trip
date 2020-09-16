@@ -26,6 +26,7 @@ block content
       div.bl_listForm_title 予定作成フォーム
       div
         form(action='/list/create' method='post' encType="multipart/form-data")
+         input(type="hidden" name="_csrf" value!=csrfToken)
          div
           span タイトル (文字数制限：18文字) :　
           input(type="text" name="listName" class="el_textForm")

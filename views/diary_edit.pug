@@ -26,6 +26,7 @@ block content
       div.bl_listForm_title 日記編集フォーム
       div
         form(action=`/diary/${title.titleId}/edit?edit=sRN6BiPkt13m3c3QjLWNvNXzVdB3qsJiFKX8ptEAfH` method='post'  encType="multipart/form-data")
+         input(type="hidden" name="_csrf" value!=csrfToken)
          div
           span タイトル (文字数制限：24文字) :　
           input(type="text" name="title" value=title.titleName class="el_textForm")

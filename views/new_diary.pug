@@ -26,6 +26,7 @@ block content
         div.bl_listForm_title 日記作成フォーム
         div.bl_listForm_note 「訪れた場所」に関する記事は最大15個まで追加することができます
         form(action='/diary/create' method='post'  encType="multipart/form-data")
+         input(type="hidden" name="_csrf" value!=csrfToken)
          div
           span タイトル (文字数制限：24文字) :　
           input(type="text" name="title" class="el_textForm")

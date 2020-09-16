@@ -26,6 +26,7 @@ block content
       div.bl_listForm_title 予定編集フォーム
       div
         form(action=`/list/${listTitle.listItemId}/edit?edit=QxAmQjYmlY2Lza1bbbr2SQAJxY7w9VnjJaVmTxwzfd` method='post' encType="multipart/form-data")
+         input(type="hidden" name="_csrf" value!=csrfToken)
          div
           span タイトル (文字数制限：18文字) :　
           input(type="text" name="listName" value=listTitle.listItemName class="el_textForm")

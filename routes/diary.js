@@ -7,9 +7,11 @@ const fs = require('fs')
 const User = require('../models/user');
 const Title = require('../models/title');
 const subTitle = require('../models/subtitle');
+const csrf = require('csurf');
+const csrfProtection = csrf({cookie:true});
 require('date-utils');
 
-router.get('/new',authensure,(req,res,next)=>{
+router.get('/new',authensure,csrfProtection,(req,res,next)=>{
   const baseitems = ['1','2','3','4','5'];
   const additems = ['7','8','9','10','11','12','13','14','15'];
   const joinitems = ['6']
@@ -17,11 +19,12 @@ router.get('/new',authensure,(req,res,next)=>{
     baseitems:baseitems,
     additems:additems,
     joinitems:joinitems,
-    user:req.user
+    user:req.user,
+    csrfToken:req.csrfToken()
   });
 })
 
-router.post('/create',authensure,(req,res,next)=>{
+router.post('/create',authensure,csrfProtection,(req,res,next)=>{
    const titleId = uuid.v4();
    const now = new Date();
    var updateAt = now.toFormat('YYYY  MM/DD  HH24:MI');
@@ -89,7 +92,7 @@ router.post('/create',authensure,(req,res,next)=>{
        })
      }) 
 
-router.get('/:titleId/edit',authensure,(req,res,next)=>{
+router.get('/:titleId/edit',authensure,csrfProtection,(req,res,next)=>{
     const titleId = req.params.titleId;
     Title.findById(titleId).then((t)=>{
       if(isMine(req,t)){
@@ -121,7 +124,8 @@ router.get('/:titleId/edit',authensure,(req,res,next)=>{
           subTimesbox:subTimesbox,
           subImpressionBox:subImpressionBox,
           subLocation:subLocation,
-          user:req.user
+          user:req.user,
+          csrfToken:req.csrfToken()
         })
       })
      } else {
@@ -132,7 +136,7 @@ router.get('/:titleId/edit',authensure,(req,res,next)=>{
    })
 })
 
-router.post('/:titleId/edit',authensure,(req,res,next)=>{
+router.post('/:titleId/edit',authensure,csrfProtection,(req,res,next)=>{
     const titleId = req.params.titleId;
     Title.findById(titleId).then((title)=>{
     if(isMine(req,title)){

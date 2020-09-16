@@ -268,9 +268,12 @@ header > .bl_header_firstSpan {
   display:1;
   font-size: 3em;
   text-align: center;
+  background:-moz-linear-gradient(top,yellow,rgb(255, 255, 82) 40%, rgb(255, 255, 204));
+  background:-webkit-linear-gradient(top,yellow,rgb(255, 255, 82) 40%, rgb(255, 255, 204));
+  background:linear-gradient(to bottom,yellow,rgb(255, 255, 82) 40%, rgb(255, 255, 204));
   width:25%;
   min-width: 5em;
-  border-right: 2px dashed white;
+  border-right: 4px solid white;
   transition: .5s;
   cursor: pointer;
 }
@@ -278,7 +281,7 @@ header > .bl_header_firstSpan {
   display: inline-block;
   text-decoration: none;
   transition: .5s;
-  background-color: rgb(252, 252, 75);
+  
   min-width: 5em;
   margin-left:0px;
   padding:.3em 1em;
@@ -412,7 +415,9 @@ header > .bl_header_firstSpan {
   font-size:1.5rem;
   font-weight: 700;
   font-family: fantasy;
-  background-color: rgb(64, 241, 10);
+  background: -moz-linear-gradient(top,rgb(154, 235, 130),rgba(64, 241, 10) 50%,rgb(196, 243, 182));
+  background: -webkit-linear-gradient(top,rgb(154, 235, 130),rgba(64, 241, 10) 50%,rgb(196, 243, 182));
+  background: linear-gradient(to bottom,rgb(154, 235, 130),rgba(64, 241, 10) 50%,rgb(196, 243, 182));
   width:86%;
   margin-left:0%;
   margin-top:10px;
@@ -540,7 +545,9 @@ header > .bl_header_firstSpan {
   margin-left: 1%;
 }
 .bl_listDisplay_title {
-  background-color: rgb(184, 250, 118);
+  background: -moz-linear-gradient(top,rgb(228, 255, 201),rgb(184, 250, 118) 50%,rgb(228, 255, 202));
+  background: -webkit-linear-gradient(top,rgb(228, 255, 201),rgb(184, 250, 118) 50%,rgb(228, 255, 202));
+  background: linear-gradient(to bottom,rgb(228, 255, 201),rgb(184, 250, 118) 50%,rgb(228, 255, 202));
   text-align: center;
   font-size: 3em;
   width:96%;
@@ -565,7 +572,9 @@ header > .bl_header_firstSpan {
 
 .bl_listDisplay_todo {
   width:92%;
-  background-color: #c8fafa;
+  background: -moz-linear-gradient(top,#d4f5f5,#a4ffff 50%, #d4f5f5);
+  background: -webkit-linear-gradient(top,#d4f5f5,#a4ffff 50%, #d4f5f5);
+  background: linear-gradient(to bottom,#d4f5f5,#a4ffff 50%, #d4f5f5);
   font-size: 1.5rem;
   margin-bottom: 10px;
   margin-left: 2%;
