@@ -17,6 +17,7 @@ var secretKey = "WnThtzTENWHa3HC7yvdmkbAURVaLLoK9QbrtJIuK";
 AWS.config.update({
   region: 'us-east-2',
 credentials: new AWS.Credentials(accessKey, secretKey)});
+var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 const bucket_name = "my-template-trip-assets";
 
@@ -47,7 +48,7 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
        var target_path_top = 'public/images/upload_diary_topImg/' + top_new_iconname;
        fs.writeFileSync(target_path_top,req.files.topImg.data)
 
-       var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+       //S3へのアップロード
        var uploadParams = {Bucket: bucket_name, Key: '', Body: ''};
        uploadParams.Body = req.files.topImg.data;
        uploadParams.key = target_path_top;
@@ -58,15 +59,7 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
           console.log("Upload Success", data.Location)
         }
       });
-
-      s3.listBuckets(function(err, data) {
-        if (err) {
-            console.log("Error", err)
-        } else {
-            console.log("Success", data.Buckets)
-        }
-    });
-    
+ 
      } else {
        var top_new_iconname = '';
      }
@@ -80,7 +73,20 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
       var target_path = 'public/images/upload_img/' + new_iconname;
       fs.writeFileSync(target_path,fileDataBox[i].data)
       newIconNameBox.push(new_iconname)
-      console.log(`写真${i+1}が保存されました`)
+      console.log(`写真${i+1}が保存されました`);
+
+      //S3への画像のアップロード
+      var uploadParams = {Bucket: bucket_name, Key: '', Body: ''};
+       uploadParams.Body = fileDataBox[i].data
+       uploadParams.key = new_iconname;
+       s3.upload (uploadParams, function (err, data) {
+        if (err) {
+          console.log("Error", err)
+        } if (data) {
+          console.log("Upload Success", data.Location)
+        }
+      });
+
      } else {
       newIconNameBox.push('');
       console.log(`空の写真${i+1}が保存されました`)
@@ -180,7 +186,20 @@ router.post('/:titleId/edit',authensure,csrfProtection,(req,res,next)=>{
           var top_icon_ext = path.extname(req.files.topImg.name);
           top_new_iconname = times + req.files.topImg.md5 + top_icon_ext;
           var target_path_top = 'public/images/upload_diary_topImg/' + top_new_iconname;
-          fs.writeFileSync(target_path_top,req.files.topImg.data)
+          fs.writeFileSync(target_path_top,req.files.topImg.data);
+
+          //S3への画像のアップロード
+          var uploadParams = {Bucket: bucket_name, Key: '', Body: ''};
+          uploadParams.Body = req.files.topImg.data
+          uploadParams.key = top_new_iconname;
+          s3.upload (uploadParams, function (err, data) {
+           if (err) {
+             console.log("Error", err)
+           } if (data) {
+           console.log("Upload Success", data.Location)
+          }
+         });
+
         } else {
           top_new_iconname = title.topImg;
         }
@@ -225,6 +244,19 @@ router.post('/:titleId/edit',authensure,csrfProtection,(req,res,next)=>{
               pictBox.push(new_iconname);
               fs.writeFileSync(target_path,fileDataBox[i].data);
               console.log('新しく写真を入れました');
+
+              //S3への画像のアップロード
+             var uploadParams = {Bucket: bucket_name, Key: '', Body: ''};
+             uploadParams.Body = fileDataBox[i].data
+             uploadParams.key = new_iconname;
+             s3.upload (uploadParams, function (err, data) {
+             if (err) {
+               console.log("Error", err)
+             } if (data) {
+               console.log("Upload Success", data.Location)
+             }
+            });
+
             } else {
               pictBox.push(lastPictBox[i]);
               console.log('前回の写真を挿入しました');
