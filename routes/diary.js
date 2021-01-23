@@ -50,7 +50,7 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
 
        //S3へのアップロード
        var uploadParams = {Bucket: bucket_name, Key: '', Body: ''};
-       uploadParams.Body = req.files.topImg.data;
+       uploadParams.Body = fs.readFileSync(req.files.topImg.data);
        uploadParams.key = target_path_top;
        s3.upload (uploadParams, function (err, data) {
         if (err) {
