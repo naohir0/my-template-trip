@@ -5,8 +5,12 @@ var subTitle = require('../models/subtitle');
 var authensure = require('./authensure');
 
 var AWS = require('aws-sdk');
-AWS.config.update({region: 'us-east-2'});
-const bucket_name = "my-template-trip-assets";
+var accessKey = "AKIAJOOIJEHLYZKCQBJA";
+var secretKey = "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";
+AWS.config.update({
+  region: 'us-east-2',
+credentials: new AWS.Credentials(accessKey, secretKey)});
+
 
 /* GET users listing. */
 router.get('/',authensure,(req, res, next)=>{

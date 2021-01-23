@@ -10,8 +10,14 @@ const subTitle = require('../models/subtitle');
 const csrf = require('csurf');
 const csrfProtection = csrf({cookie:true});
 require('date-utils');
+
 var AWS = require('aws-sdk');
-AWS.config.update({region: 'us-east-2'});
+var accessKey = "AKIAJOOIJEHLYZKCQBJA";
+var secretKey = "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";
+AWS.config.update({
+  region: 'us-east-2',
+credentials: new AWS.Credentials(accessKey, secretKey)});
+
 const bucket_name = "my-template-trip-assets";
 
 router.get('/new',authensure,csrfProtection,(req,res,next)=>{
