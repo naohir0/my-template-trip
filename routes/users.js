@@ -31,6 +31,8 @@ s3.listBuckets(function(err, data) {
   }
 });
 
+
+
        res.render('users',{
          user:req.user,
          titles:titles,
