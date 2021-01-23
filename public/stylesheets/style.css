@@ -281,7 +281,7 @@ header > .bl_header_firstSpan {
   display: inline-block;
   text-decoration: none;
   transition: .5s;
-  
+  position: relative;
   min-width: 5em;
   margin-left:0px;
   padding:.3em 1em;
@@ -295,10 +295,24 @@ header > .bl_header_firstSpan {
 .ly_ancor li:hover > a {
   background-color:yellow;
 }
-.ly_ancor li:hover > a > span {
-  color:blue;
-  border-bottom: blue solid 3px;
+
+.ly_ancor li > a > span::after{
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  content: '';
+  width: 100%;
+  height: 5px;
+  background:blue;
+  transform: scale(0, 1);
+  transform-origin: center top;
+  transition: transform .3s;
 }
+.ly_ancor li > a:hover > span::after {
+  transform: scale(1, 1);
+}
+.ly_ancor li:hover > a > span {
+  color:blue;}
 .el_listConuter {
   font-size: 2em;
   margin-left:3%;
@@ -561,6 +575,16 @@ header > .bl_header_firstSpan {
   margin-left:0.5%;
   margin-top:0px;
   margin-bottom: 10px;
+  filter: brightness(100%);
+  transition-property: filter;
+  transition-duration: 18000s;
+}
+
+.bl_listDisplay_img:hover{
+  filter: brightness(120%);
+  transition-property: filter;
+  transition-timing-function: cubic-bezier(0.000003, 1, 0.320, 1);
+  transition-duration: 18000s;
 }
 
 .bl_listDisplay_items {
@@ -881,6 +905,7 @@ header > .bl_header_firstSpan {
   padding-bottom: 15px;
   font-weight: 600;
 }
+
 
 .bl_listDisplay_subLocation__diary {
   margin-bottom: 30px;
