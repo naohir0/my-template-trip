@@ -10,6 +10,9 @@ const subTitle = require('../models/subtitle');
 const csrf = require('csurf');
 const csrfProtection = csrf({cookie:true});
 require('date-utils');
+var AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-2'});
+const bucket_name = "my-template-trip-assets";
 
 router.get('/new',authensure,csrfProtection,(req,res,next)=>{
   const baseitems = ['1','2','3','4','5'];
@@ -37,6 +40,27 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
        var top_new_iconname = time + req.files.topImg.md5 + top_icon_ext;
        var target_path_top = 'public/images/upload_diary_topImg/' + top_new_iconname;
        fs.writeFileSync(target_path_top,req.files.topImg.data)
+
+       var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+       var uploadParams = {Bucket: bucket_name, Key: '', Body: ''};
+       uploadParams.Body = req.files.topImg.data;
+       uploadParams.key = target_path_top;
+       s3.upload (uploadParams, function (err, data) {
+        if (err) {
+          console.log("Error", err)
+        } if (data) {
+          console.log("Upload Success", data.Location)
+        }
+      });
+
+      s3.listBuckets(function(err, data) {
+        if (err) {
+            console.log("Error", err)
+        } else {
+            console.log("Success", data.Buckets)
+        }
+    });
+    
      } else {
        var top_new_iconname = '';
      }
