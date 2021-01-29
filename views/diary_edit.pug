@@ -10,22 +10,22 @@ block content
      div.ly_ancor
         ul
           li
-            a(href="/users") 
+            a(href=`/users/?id=${id}`) 
              span 日記一覧へ
           li
-            a(href="/list") 
+            a(href=`/list/?id=${id}`) 
              span 予定一覧へ
           li
-            a(href="/list/new") 
+            a(href=`/list/new/?id=${id}`) 
              span 予定を作る
           li
-            a(href="/share") 
+            a(href=`/share/?id=${id}`) 
              span 公開日記
    div.ly_listForm
     div.bl_listFrom
       div.bl_listForm_title 日記編集フォーム
       div
-        form(action=`/diary/${title.titleId}/edit?edit=sRN6BiPkt13m3c3QjLWNvNXzVdB3qsJiFKX8ptEAfH` method='post'  encType="multipart/form-data")
+        form(action=`/diary/${title.titleId}/edit?edit=sRN6BiPkt13m3c3QjLWNvNXzVdB3qsJiFKX8ptEAfH&id=${id}` method='post'  encType="multipart/form-data")
          input(type="hidden" name="_csrf" value!=csrfToken)
          div
           span タイトル (文字数制限：24文字) :　

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1(class="loading_title loading_text") 開始前にデータをローディングします
+   span(class="loading_title_point")
+  h3(class="loading_title_attention loading_text")
+  br
+  div.btn_case
+   button(type="submit" class=`btn_loading btn_startLoading`) ローディング開始
+   form(action="/", method="post" class="form_hidden loadingFinForm")
+    button(type="submit" class=`btn_done btn_endLoading`)

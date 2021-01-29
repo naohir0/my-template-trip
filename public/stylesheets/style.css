@@ -428,7 +428,7 @@ header > .bl_header_firstSpan {
   text-align: center;
   font-size:1.5rem;
   font-weight: 700;
-  font-family: fantasy;
+  
   background: -moz-linear-gradient(top,rgb(154, 235, 130),rgba(64, 241, 10) 50%,rgb(196, 243, 182));
   background: -webkit-linear-gradient(top,rgb(154, 235, 130),rgba(64, 241, 10) 50%,rgb(196, 243, 182));
   background: linear-gradient(to bottom,rgb(154, 235, 130),rgba(64, 241, 10) 50%,rgb(196, 243, 182));
@@ -1258,11 +1258,55 @@ header > .bl_header_firstSpan {
     margin-bottom:40px;
   }
 
-  /* 日記編集フォームのCSS */
-
-  .bl_listForm_radio__shareDiary {
-    margin-right:10px;
-  }
+  
 }
 
+/* 日記編集フォームのCSS */
 
+.form_hidden{
+  display: none;
+}
+.btn_startLoading{
+  position: relative;
+  display: inline-block;
+  padding: .7em 3.0em;
+  text-decoration: none;
+  color: #FFF;
+  background: #fd9535;/*色*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 3px 0 rgba(255,255,255,0.2), inset 0 -3px 0 rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  border: solid 2px #d27d00;/*線色*/
+  cursor: pointer;
+  font-size:1.2em;
+}
+.btn_startLoading:active{
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+  color:purple;
+}
+.btn_endLoading{
+  width:14.2em;
+  position: relative;
+  display: inline-block;
+  padding: .7em 1.5em;
+  text-decoration: none;
+  color: #FFF;
+  background: #4bc6ff;/*色*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 4px 0 rgba(255,255,255,0.2), inset 0 -4px 0 rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  border: solid 2px #4bc6ff;/*線色*/
+  cursor: pointer;
+  font-size: 1.2em;
+}
+.btn_case{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.loading_title {
+  margin-top:60px;
+}
+.loading_text{
+  text-align: center;
+}

@@ -99,6 +99,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary_alter').each(function (i, 
   var button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e);
   button.click(function () {
     var titleId = button.data('title-id');
+    var dataLoadingId = button.data('loadingid');
     jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/title/".concat(titleId, "/alter/d"), {
       data: titleId
     }, function (data) {
@@ -120,7 +121,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary_alter').each(function (i, 
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary-insertAt').text("\u65E5\u8A18\u66F4\u65B0\u65E5\uD83D\uDD5C\uFF1A".concat(insertAt));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary-date').text("\u65C5\u884C\u65E5\uD83D\uDD5E\uFF1A".concat(titleDate));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary-weather').text("\u5929\u6C17\uFF1A".concat(titleWeather));
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".bl_listDisplay_img__diary").attr('src', "./images/upload_diary_topImg/".concat(topImg));
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".bl_listDisplay_img__diary").attr('src', "../images/getFromS3_img/".concat(dataLoadingId).concat(topImg));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay').removeClass('hidden_display');
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay_img__diary').removeClass('hidden_display');
       } else {
@@ -134,7 +135,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.diary_alter').each(function (i, 
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-impression".concat(_i + 1)).text("".concat(subImpressionBox[_i]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-times".concat(_i + 1)).text("\u8A2A\u554F\u6642\u523B\uFF1A".concat(subTimesBox[_i]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-location".concat(_i + 1)).text("\u5834\u6240\uFF1A".concat(subLocationBox[_i]));
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-img".concat(_i + 1)).attr('src', "./images/upload_img/".concat(subPictBox[_i]));
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-img".concat(_i + 1)).attr('src', "../images/getFromS3_img/".concat(dataLoadingId).concat(subPictBox[_i]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-img".concat(_i + 1)).removeClass('hidden-img');
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-title".concat(_i + 1)).removeClass('hidden_display');
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".sub-impression".concat(_i + 1)).removeClass('hidden_display');
@@ -185,6 +186,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.remove-making-diarysubItem').eac
 });
 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list_alter').each(function (i, e) {
   var button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e);
+  var dataLoadingId = button.data('loadingid');
   button.click(function () {
     var listId = button.data('list-id');
     jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/list/".concat(listId, "/alter/d"), {
@@ -205,7 +207,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list_alter').each(function (i, e
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-updateAt').text("\u4E88\u5B9A\u4F5C\u6210\u65E5\uFF1A".concat(updateAt));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-insertAt').text("\u4E88\u5B9A\u66F4\u65B0\u65E5\uFF1A".concat(insertAt));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-place').text("\u6240\u5728\u5730\uFF1A".concat(listItemPlace));
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-pict').attr('src', "./images/upload_list_icon/".concat(listItemPict));
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-pict').attr('src', "../images/getFromS3_img/".concat(dataLoadingId).concat(listItemPict));
       } else {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay').addClass('hidden_display');
       }
@@ -246,6 +248,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cancel-del-listItem').each(funct
 });
 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared_diary_alter').each(function (i, e) {
   var button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e);
+  var dataLoadingId = button.data('loadingid');
   button.click(function () {
     var titleId = button.data('title-id');
     jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/title/".concat(titleId, "/alter/d"), {
@@ -271,7 +274,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared_diary_alter').each(functi
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-date').text("\u65C5\u884C\u65E5\uFF1A".concat(titleDate));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-weather').text("\u5929\u6C17\uFF1A".concat(titleWeather));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared-diary-postedBy').text("\u6295\u7A3F\u8005\uFF1A".concat(titleContributor));
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".bl_listDisplay_img__diary").attr('src', "./images/upload_diary_topImg/".concat(topImg));
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".bl_listDisplay_img__diary").attr('src', "../images/getFromS3_img/".concat(dataLoadingId).concat(topImg));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay_img__diary').removeClass('hidden_display');
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.bl_listDisplay').removeClass('hidden_display');
       } else {
@@ -285,7 +288,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared_diary_alter').each(functi
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-impression".concat(_i3 + 1)).text("".concat(subImpressionBox[_i3]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-times".concat(_i3 + 1)).text("\u8A2A\u554F\u6642\u523B\uFF1A".concat(subTimesBox[_i3]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-location".concat(_i3 + 1)).text("\u5834\u6240\uFF1A".concat(subLocationBox[_i3]));
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-img".concat(_i3 + 1)).attr('src', "./images/upload_img/".concat(subPictBox[_i3]));
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-img".concat(_i3 + 1)).attr('src', "../images/getFromS3_img/".concat(dataLoadingId).concat(subPictBox[_i3]));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-img".concat(_i3 + 1)).removeClass('hidden-img');
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-title".concat(_i3 + 1)).removeClass('hidden_display');
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-impression".concat(_i3 + 1)).removeClass('hidden_display');
@@ -304,6 +307,27 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.shared_diary_alter').each(functi
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(".shared-sub-location".concat(_i3 + 1)).addClass('hidden_display');
         }
       }
+    });
+  });
+});
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btn_loading').each(function (i, e) {
+  var button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e);
+  button.click(function () {
+    button.prop("disabled", true);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".loading_title").text("ローディング中... しばらくお待ちください");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".loading_title_attention").text("(ネットワークの状況により、完了まで1分以上かかることがあります)");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/loadingPaging/loadingData').done(function (data) {
+      var state = data.state;
+      var loadingId = data.loadingId;
+      var encodedLoadingId = data.encodedLoadingId;
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(".loading_title").text(state);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(".loading_title_attention").text("");
+      button.prop("disabled", false);
+      button.text("もう一度ローディング");
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.form_hidden').removeClass('form_hidden');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.loadingFinForm').attr("action", "/users/?id=".concat(loadingId));
+      button.addClass('form_hidden');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btn_done').text("完了");
     });
   });
 });

@@ -5,6 +5,7 @@ $('.diary_alter').each((i,e)=>{
   const button = $(e);
   button.click(()=>{
     const titleId = button.data('title-id');
+    const dataLoadingId = button.data('loadingid');
     $.post(`/title/${titleId}/alter/d`,{
       data:titleId
     }, (data)=>{
@@ -25,7 +26,7 @@ $('.diary_alter').each((i,e)=>{
         $('.diary-insertAt').text(`日記更新日🕜：${insertAt}`)
         $('.diary-date').text(`旅行日🕞：${titleDate}`)
         $('.diary-weather').text(`天気：${titleWeather}`)
-        $(`.bl_listDisplay_img__diary`).attr('src',`./images/upload_diary_topImg/${topImg}`)
+        $(`.bl_listDisplay_img__diary`).attr('src',`../images/getFromS3_img/${dataLoadingId}${topImg}`)
         $('.bl_listDisplay').removeClass('hidden_display')
         $('.bl_listDisplay_img__diary').removeClass('hidden_display')
       } else {
@@ -39,7 +40,7 @@ $('.diary_alter').each((i,e)=>{
          $(`.sub-impression${i+1}`).text(`${subImpressionBox[i]}`)
          $(`.sub-times${i+1}`).text(`訪問時刻：${subTimesBox[i]}`)
          $(`.sub-location${i+1}`).text(`場所：${subLocationBox[i]}`)
-         $(`.sub-img${i+1}`).attr('src',`./images/upload_img/${subPictBox[i]}`)
+         $(`.sub-img${i+1}`).attr('src',`../images/getFromS3_img/${dataLoadingId}${subPictBox[i]}`)
          $(`.sub-img${i+1}`).removeClass('hidden-img')
          $(`.sub-title${i+1}`).removeClass('hidden_display')
          $(`.sub-impression${i+1}`).removeClass('hidden_display')
@@ -94,6 +95,7 @@ $('.remove-making-diarysubItem').each((i,e)=>{
 
 $('.list_alter').each((i,e)=>{
   const button = $(e);
+  const dataLoadingId = button.data('loadingid');
   button.click(()=>{
     const listId = button.data('list-id');
     $.post(`/list/${listId}/alter/d`,{
@@ -113,7 +115,7 @@ $('.list_alter').each((i,e)=>{
         $('.list-updateAt').text(`予定作成日：${updateAt}`);
         $('.list-insertAt').text(`予定更新日：${insertAt}`);
         $('.list-place').text(`所在地：${listItemPlace}`);
-        $('.list-pict').attr('src',`./images/upload_list_icon/${listItemPict}`);
+        $('.list-pict').attr('src',`../images/getFromS3_img/${dataLoadingId}${listItemPict}`);
       } else {
         $('.bl_listDisplay').addClass('hidden_display');
       }
@@ -154,6 +156,7 @@ $('.cancel-del-listItem').each((i,e)=>{
 
 $('.shared_diary_alter').each((i,e)=>{
   const button = $(e);
+  const dataLoadingId = button.data('loadingid');
   button.click(()=>{
     const titleId = button.data('title-id');
     $.post(`/title/${titleId}/alter/d`,{
@@ -179,7 +182,7 @@ $('.shared_diary_alter').each((i,e)=>{
          $('.shared-diary-date').text(`旅行日：${titleDate}`)
          $('.shared-diary-weather').text(`天気：${titleWeather}`)
          $('.shared-diary-postedBy').text(`投稿者：${titleContributor}`)
-         $(`.bl_listDisplay_img__diary`).attr('src',`./images/upload_diary_topImg/${topImg}`)
+         $(`.bl_listDisplay_img__diary`).attr('src',`../images/getFromS3_img/${dataLoadingId}${topImg}`)
          $('.bl_listDisplay_img__diary').removeClass('hidden_display')
          $('.bl_listDisplay').removeClass('hidden_display')
       } else {
@@ -193,7 +196,7 @@ $('.shared_diary_alter').each((i,e)=>{
          $(`.shared-sub-impression${i+1}`).text(`${subImpressionBox[i]}`)
          $(`.shared-sub-times${i+1}`).text(`訪問時刻：${subTimesBox[i]}`)
          $(`.shared-sub-location${i+1}`).text(`場所：${subLocationBox[i]}`)
-         $(`.shared-sub-img${i+1}`).attr('src',`./images/upload_img/${subPictBox[i]}`)
+         $(`.shared-sub-img${i+1}`).attr('src',`../images/getFromS3_img/${dataLoadingId}${subPictBox[i]}`)
          $(`.shared-sub-img${i+1}`).removeClass('hidden-img')
          $(`.shared-sub-title${i+1}`).removeClass('hidden_display')
          $(`.shared-sub-impression${i+1}`).removeClass('hidden_display')
@@ -212,6 +215,28 @@ $('.shared_diary_alter').each((i,e)=>{
         $(`.shared-sub-location${i+1}`).addClass('hidden_display')
        }
       }
+    })
+  })
+})
+
+$('.btn_loading').each((i,e)=>{
+  const button = $(e);
+  button.click(()=>{
+    button.prop("disabled", true);
+    $(`.loading_title`).text("ローディング中... しばらくお待ちください");
+    $(`.loading_title_attention`).text("(ネットワークの状況により、完了まで3分以上かかることがあります)");
+    $.getJSON('/loadingPaging/loadingData').done((data)=>{
+      var state = data.state;
+      var loadingId = data.loadingId;
+      var encodedLoadingId = data.encodedLoadingId;
+      $(`.loading_title`).text(state);
+      $(`.loading_title_attention`).text("");
+      button.prop("disabled", false);
+      button.text("もう一度ローディング");
+      $('.form_hidden').removeClass('form_hidden');
+      $('.loadingFinForm').attr("action", `/users/?id=${loadingId}`);
+      button.addClass('form_hidden');
+      $('.btn_done').text("完了");
     })
   })
 })

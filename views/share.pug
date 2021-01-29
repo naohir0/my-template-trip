@@ -10,34 +10,34 @@ block content
     div.ly_subHeader
       div.loginInfo 
        div 現在 #{user.username} でログイン中です
-       a(href="/logout")
+       a(href=`/logout/?id=${id}`)
         span ログアウト
       div.ly_ancor
         ul
           li
-            a(href="/users") 
+            a(href=`/users/?id=${id}`) 
              span 日記一覧へ
           li
-            a(href="/diary/new") 
+            a(href=`/diary/new/?id=${id}`) 
              span 日記を作る
           li
-            a(href="/list")
+            a(href=`/list/?id=${id}`)
              span 予定一覧へ
           li
-            a(href="/list/new")
+            a(href=`/list/new/?id=${id}`)
              span 予定を作る
     div.ly_mainArea
        div.bl_mainContent
          div.bl_mainContent_title 公開日記一覧
          each shareTitle in shareTitles
-            div(style="background-image: url(" + `../images/upload_diary_topImg/${shareTitle.topImg}` + ")").bl_bgImgCard.bl_bgImgCard__share
+            div(style="background-image: url(" + `../images/getFromS3_img/${id}${shareTitle.topImg}` + ")").bl_bgImgCard.bl_bgImgCard__share
              div.bl_bgImgCard_body
               h4.bl_bgImgCard_body_title #{shareTitle.titleName}
               p.bl_bgImgCard_body_item.bl_bgImgCard_body_item__share 投稿者：#{shareTitle.contributor}
               p.bl_bgImgCard_body_item.bl_bgImgCard_body_item__share 旅行日：#{shareTitle.date}
               p.bl_bgImgCard_body_item.bl_bgImgCard_body_item__share 公開日：#{shareTitle.insertAt}
               div.bl_bgImgCard_body_buttons
-               button(data-title-id=shareTitle.titleId).shared_diary_alter.bl_listCard_buttons_item.bl_bgImgCard_body_showButton__share 詳細を表示
+               button(data-title-id=shareTitle.titleId data-loadingid=id).shared_diary_alter.bl_listCard_buttons_item.bl_bgImgCard_body_showButton__share 詳細を表示
        div.bl_mainContent.bl_mainContent__right
          div.bl_mainContent_title 詳細表示欄
          div.bl_listDisplay.hidden_display

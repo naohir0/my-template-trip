@@ -10,21 +10,21 @@ block content
     div.ly_subHeader
       div.loginInfo 
        div 現在 #{user.username} でログイン中です
-       a(href="/logout")
+       a(href=`/logout/?id=${id}`)
         span ログアウト
       div.ly_ancor
         ul
           li
-            a(href="/list/new")
+            a(href=`/list/new/?id=${id}`)
              span 予定を作る
           li
-            a(href="/users") 
+            a(href=`/users/?id=${id}`) 
              span 日記一覧へ
           li
-            a(href="/diary/new") 
+            a(href=`/diary/new/?id=${id}`) 
              span 日記を作る
           li
-            a(href="/share") 
+            a(href=`/share/?id=${id}`) 
              span 公開日記
     div
      p.el_listConuter 過去の投稿 全#{length}件 完了#{doneListLength}件
@@ -36,7 +36,7 @@ block content
             div.list-done.bl_listCard
              span.bl_listCard_badge
              span.bl_listCard_badge_text 完了
-             img(src=`./images/upload_list_icon/${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img bl_listCard_img__done")
+             img(src=`../images/getFromS3_img/${id}${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img bl_listCard_img__done")
              br
              h4.bl_listCard_title #{list.listItemName} 
              div.bl_listCard_updateAt 予定作成日： #{list.updateAt}
@@ -45,17 +45,17 @@ block content
              div.bl_listCard_buttons
               button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示する
               button.bl_listCard_editButton.bl_listCard_buttons_item
-                 a(href=`/list/${list.listItemId}/edit`) 予定を編集する
+                 a(href=`/list/${list.listItemId}/edit/?id=${id}`) 予定を編集する
               button.del-listItem-temp.bl_listCard_deleteButton.bl_listCard_buttons_item 予定を削除する
               div.confirm-del-list-hidden.confirm-del-list
                div.bl_listCard_delete_confirm この投稿を削除します。本当によろしいですか？
                 br
                 button.el_confirmYesButton
-                 a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn`) はい
+                 a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn&/?id=${id}`) はい
                 button.cancel-del-listItem.el_confirmNoButton いいえ
            else
             div.bl_listCard
-             img(src=`./images/upload_list_icon/${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img")
+             img(src=`../images/getFromS3_img/${id}${list.listItemPict || '20200817185154e4d4a02c797acec493981c9e0632d907.jpg'}` class="bl_listCard_img")
              br
              h4.bl_listCard_title #{list.listItemName} 
              div.bl_listCard_updateAt 予定作成日： #{list.updateAt}
@@ -63,15 +63,15 @@ block content
               div.bl_listCard_insertAt 予定更新日： #{list.insertAt}
              div.bl_listCard_place 所在地： #{list.listItemPlace}
              div.bl_listCard_buttons
-              button(data-list-id=list.listItemId).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示
+              button(data-list-id=list.listItemId data-loadingid=id).list_alter.bl_listCard_showButton.bl_listCard_buttons_item 詳細を表示
               button.bl_listCard_editButton.bl_listCard_buttons_item
-                 a(href=`/list/${list.listItemId}/edit`) 予定を編集
+                 a(href=`/list/${list.listItemId}/edit/?id=${id}`) 予定を編集
               button.del-listItem-temp.bl_listCard_delete.bl_listCard_buttons_item 予定を削除
               div.confirm-del-list-hidden.confirm-del-list
                div.bl_listCard_delete_confirm この投稿を削除します。本当によろしいですか？
                 br
                 button.el_confirmYesButton
-                 a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn`) はい
+                 a(href=`/list/${list.listItemId}/delete?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn&id=${id}`) はい
                 button.cancel-del-listItem.el_confirmNoButton いいえ
       div.bl_mainContent.bl_mainContent__right
           div.bl_mainContent_title 予定詳細

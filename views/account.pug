@@ -1,2 +1,11 @@
+extends layout
 
-  
+block content
+  h1(class="loading_title") データをローディング
+   span(class="loading_title_point")
+  h3(class="loading_title_attention") (ネットワークの状況により、完了まで1分以上かかることがあります)
+  br
+  button(type="submit" class=`btn_startLoading`) ローディング開始
+  form(action="/", method="post" class="loadingFinForm")
+    button(type="submit" class=`btn_endLoading`) 完了
+  br

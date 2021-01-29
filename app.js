@@ -56,6 +56,12 @@ var listRouter = require('./routes/list');
 var listAlterRouter = require('./routes/showList');
 var sharedDiaryShowRouter = require('./routes/shared_diary_show');
 var shareDiaryies = require('./routes/share');
+var loadingRouter = require('./routes/loading');
+var diaryCreateLaodingRouter = require('./routes/diaryCreateLoading');
+var diaryEditLoading = require('./routes/diaryEditLoading');
+var listCreateLaoding = require('./routes/listCreateLoading');
+var listEditLoading = require('./routes/listEditLoading');
+var loadingPagingRouter = require('./routes/loadingPaging');
 
 var app = express();
 
@@ -85,6 +91,12 @@ app.use('/list',listRouter);
 app.use('/list',listAlterRouter);
 app.use('/shared',sharedDiaryShowRouter);
 app.use('/share',shareDiaryies);
+app.use('/loading',loadingRouter);
+app.use('/diaryCreating',diaryCreateLaodingRouter);
+app.use('/diaryEditing',diaryEditLoading);
+app.use('/listCreating',listCreateLaoding);
+app.use('/listEditing',listEditLoading);
+app.use('/loadingPaging',loadingPagingRouter);
 
 app.get('/auth/github',
 passport.authenticate('github',{scope:['user:email']}),
@@ -92,7 +104,7 @@ function (req,res){});
 
 app.get('/auth/github/callback',
   passport.authenticate('github',{failureRedirect:'/'}),
-  function (req,res){return res.redirect('/users')})
+  function (req,res){return res.redirect('/loadingPaging')})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
