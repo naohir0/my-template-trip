@@ -4,7 +4,6 @@ const authensure = require('./authensure');
 const uuid = require('uuid');
 const path = require('path');
 const fs = require('fs');
-const User = require('../models/user');
 const Title = require('../models/title');
 const subTitle = require('../models/subtitle');
 const csrf = require('csurf');
@@ -12,9 +11,6 @@ const csrfProtection = csrf({cookie:true});
 require('date-utils');
 
 var AWS = require('aws-sdk');
-const fileUpload = require('express-fileupload');
-const { rejects } = require('assert');
-const { resolve } = require('path');
 var accessKey = "AKIAJOOIJEHLYZKCQBJA";
 var secretKey = "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";
 const bucket_name = "my-template-trip-assets";
@@ -65,12 +61,14 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
      if(req.files.topImg){
        var top_icon_ext = path.extname(req.files.topImg.name);
        var top_new_iconname = time + req.files.topImg.md5 + top_icon_ext;
-       var target_path_top = 'public/images/upload_diary_topImg/' + top_new_iconname;
+       var writeFile_topNewIconname = loadingId + top_new_iconname;
+       var target_path_top = 'public/images/getFromS3_img/' + writeFile_topNewIconname;
+       var target_path_top_forS3 = 'public/images/upload_diary_topImg/' + top_new_iconname;
        fs.writeFileSync(target_path_top,req.files.topImg.data)
-
+       fs.writeFileSync(target_path_top_forS3,req.files.topImg.data)
        //S3へのアップロード
-       var uploadFile = fs.readFileSync(target_path_top);
-       var key = target_path_top;
+       var uploadFile = fs.readFileSync(target_path_top_forS3);
+       var key = target_path_top_forS3;
        var uploadParams = {Bucket: bucket_name, Key:key, Body:uploadFile};
        s3.upload (uploadParams, function (err, data) {
         if (err) {
@@ -96,15 +94,18 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
      if(fileDataBox[i]){
       var icon_ext = path.extname(fileDataBox[i].name);
       var new_iconname = time + fileDataBox[i].md5 + icon_ext;
-      var target_path = 'public/images/upload_img/' + new_iconname;
+      var writeFile_newIconnname = loadingId + new_iconname
+      var target_path = 'public/images/getFromS3_img/' + writeFile_newIconnname;
+      var target_path_forS3 = 'public/images/upload_img/' + new_iconname;
       
-      fs.writeFileSync(target_path,fileDataBox[i].data)
+      fs.writeFileSync(target_path,fileDataBox[i].data);
+      fs.writeFileSync(target_path_forS3,fileDataBox[i].data);
       newIconNameBox.push(new_iconname)
       console.log(`写真${i+1}が保存されました`);
 
       //S3への画像のアップロード
-      var uploadFile = fs.readFileSync(target_path);
-      var key = target_path;
+      var uploadFile = fs.readFileSync(target_path_forS3);
+      var key = target_path_forS3;
       var uploadParams = {Bucket: bucket_name, Key:key, Body:uploadFile};
       s3.upload (uploadParams, function (err, data) {
        if (err) {
@@ -171,7 +172,9 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
           }
            subTitleBox.filter((i)=>{return i.subtitle !== ""})
            subTitle.bulkCreate(subTitleBox).then(()=>{
-               res.redirect(`/diaryCreating/?id=${loadingId}&time=${updateAt}`);
+                res.redirect(`/users/?id=${loadingId}`);
+                // 画像はS3から引き出さないので以下のリダイレクトは行わない
+                // res.redirect(`/diaryCreating/?id=${loadingId}&time=${updateAt}`);
          })
        })
      } //関数 dataCreate()の終了
@@ -241,12 +244,14 @@ router.post('/:titleId/edit',authensure,csrfProtection,(req,res,next)=>{
           t = '1';  //1 = true
           var top_icon_ext = path.extname(req.files.topImg.name);
           top_new_iconname = times + req.files.topImg.md5 + top_icon_ext;
-          var target_path_top = 'public/images/upload_diary_topImg/' + top_new_iconname;
+          var writeFile_topNewIconname = loadingId + top_new_iconname;
+          var target_path_top = 'public/images/getFromS3_img/' + writeFile_topNewIconname;
+          var target_path_top_forS3 = 'public/images/upload_diary_topImg/' + top_new_iconname;
           fs.writeFileSync(target_path_top,req.files.topImg.data);
-
+          fs.writeFileSync(target_path_top_forS3,req.files.topImg.data);
           //S3への画像のアップロード
-          var uploadFile = fs.readFileSync(target_path_top);
-          var key = target_path_top;
+          var uploadFile = fs.readFileSync(target_path_top_forS3);
+          var key = target_path_top_forS3;
           var uploadParams = {Bucket: bucket_name, Key:key, Body:uploadFile};
           s3.upload (uploadParams, function (err, data) {
           if (err) {
@@ -302,14 +307,17 @@ router.post('/:titleId/edit',authensure,csrfProtection,(req,res,next)=>{
             if(fileDataBox[i]){ //subの画像の変更がある場合の画像の処理(パス作成、S3へのアップロード)(D)
               const icon_ext = path.extname(fileDataBox[i].name);
               const new_iconname = time + fileDataBox[i].md5 + icon_ext;
-              const target_path = 'public/images/upload_img/' + new_iconname;
+              const writeFile_newIconnname = loadingId + new_iconname;
+              const target_path = 'public/images/getFromS3_img/' + writeFile_newIconnname;
+              const target_path_forS3 = 'public/images/upload_img/' + new_iconname;
               pictBox.push(new_iconname);
               fs.writeFileSync(target_path,fileDataBox[i].data);
+              fs.writeFileSync(target_path_forS3,fileDataBox[i].data);
               console.log('新しく写真を入れました');
 
               //S3への画像のアップロード
-              var uploadFile = fs.readFileSync(target_path);
-              var key = target_path;
+              var uploadFile = fs.readFileSync(target_path_forS3);
+              var key = target_path_forS3;
               var uploadParams = {Bucket: bucket_name, Key:key, Body:uploadFile};
               s3.upload (uploadParams, function (err, data) {
                if (err) {
@@ -348,8 +356,9 @@ router.post('/:titleId/edit',authensure,csrfProtection,(req,res,next)=>{
             }
               subTitleDataBox.filter((i)=>{return i.subtitle !== ""})
               subTitle.bulkCreate(subTitleDataBox).then(()=>{
-                console.log("/diaryEditing/ へのリダイレクト直前")
-                res.redirect(`/diaryEditing/?id=${loadingId}&insertAt=${insertAt}&t=${t}`);
+                  res.redirect(`/users/?id=${loadingId}`);
+                  // 画像はS3から引き出さないので以下のリダイレクトは行わない
+                  // res.redirect(`/diaryCreating/?id=${loadingId}&time=${updateAt}`);
               })
             }
          

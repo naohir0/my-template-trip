@@ -9,12 +9,10 @@ const csrfProtection = csrf({cookie:true});
 
 require('date-utils');
 
-const User = require('../models/user');
 const List = require('../models/list');
 const listComment = require('../models/comment');
 
 var AWS = require('aws-sdk');
-const fileUpload = require('express-fileupload');
 var accessKey = "AKIAJOOIJEHLYZKCQBJA";
 var secretKey = "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";
 const bucket_name = "my-template-trip-assets";
@@ -77,12 +75,15 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
     if(req.files){
      const icon_ext = path.extname(req.files.listPict.name);
      new_iconname = time + req.files.listPict.md5 + icon_ext;
-     const target_path = 'public/images/upload_list_icon/' + new_iconname;
+     const writeFile_newIconnname = id + new_iconname;
+     const target_path = 'public/images/getFromS3_img/' + writeFile_newIconnname;
+     const target_path_forS3 = 'public/images/upload_list_icon/' + new_iconname;
      fs.writeFileSync(target_path,req.files.listPict.data);
+     fs.writeFileSync(target_path_forS3,req.files.listPict.data);
 
      //S3への画像のアップロード
-     var uploadFile = fs.readFileSync(target_path);
-     var key = target_path;
+     var uploadFile = fs.readFileSync(target_path_forS3);
+     var key = target_path_forS3;
      var uploadParams = {Bucket: bucket_name, Key:key, Body:uploadFile};
      s3.upload (uploadParams, function (err, data) {
       if (err) {
@@ -121,7 +122,9 @@ router.post('/create',authensure,csrfProtection,(req,res,next)=>{
       }
       listCommentItemBox.filter((t)=>{return t !== ''});
       listComment.bulkCreate(listCommentItemBox).then(()=>{
-        res.redirect(`/listCreating/?id=${id}&updateAt=${updateAt}`);
+        res.redirect(`/list/?id=${id}`);
+        // 画像はS3から引き出さないので以下のリダイレクトは行わない
+        //res.redirect(`/listCreating/?id=${id}&updateAt=${updateAt}`);
       })
     })
    }
@@ -181,11 +184,14 @@ router.post('/:listId/edit',authensure,csrfProtection,(req,res,next)=>{
        upLoadedImg = 'Editing' //Editing ：新しい写真の追加あり
        const icon_ext = path.extname(req.files.listPict.name);
        new_iconname = time + req.files.listPict.md5 + icon_ext;
-       const target_path = 'public/images/upload_list_icon/' + new_iconname;
+       const writeFile_newIconnname = id + new_iconname;
+       const target_path = 'public/images/getFromS3_img/' + writeFile_newIconnname;
+       const target_path_forS3 = 'public/images/upload_list_icon/' + new_iconname;
        fs.writeFileSync(target_path,req.files.listPict.data);
+       fs.writeFileSync(target_path_forS3,req.files.listPict.data);
        //S3への画像のアップロード
-       var uploadFile = fs.readFileSync(target_path);
-       var key = target_path;
+       var uploadFile = fs.readFileSync(target_path_forS3);
+       var key = target_path_forS3;
        var uploadParams = {Bucket: bucket_name, Key:key, Body:uploadFile};
        s3.upload (uploadParams, function (err, data) {
        if (err) {
@@ -229,7 +235,9 @@ router.post('/:listId/edit',authensure,csrfProtection,(req,res,next)=>{
             } 
             listCommentItemBox.filter((t)=>{return t !== ''});
             listComment.bulkCreate(listCommentItemBox).then(()=>{
-                 res.redirect(`/list${upLoadedImg}/?id=${id}&insertAt=${insertAt}`);
+                 res.redirect(`/list/?id=${id}`);
+                 // 画像はS3から引き出さないので以下のリダイレクトは行わない
+                 // res.redirect(`/list${upLoadedImg}/?id=${id}&insertAt=${insertAt}`);
             })
            })
          })
