@@ -41,6 +41,7 @@ passport.use(new GitHubStrategy({
       userId:profile.id,
       username:profile.username
      }).then(()=>{
+       console.log(`個人情報UPSERT完了です`)
        return done(null,profile)
      })
    })
