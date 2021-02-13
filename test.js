@@ -223,7 +223,7 @@ describe('S３導入後のCURD',()=>{
            if (err) return done(err);
            request(app)
            .get('/users/?id=3333')
-           .expect(/テスト旅行/)
+           .expect(/テスト編集旅行/)
            .expect(200,done)
          })
         })
@@ -272,6 +272,21 @@ describe('S３導入後のCURD',()=>{
         request(app)
         .get(`/diary/${titleId}/delete/?delete=J8bRiFW7tUqgcHNraAgTkP8116KYuMxLIP9VRlRtpu`)
         .expect(302)
+        .end((err,res)=>{
+          if(err){return done(err)}
+          request(app)
+          .get('/users/?id=300')
+          .expect(/テスト編集旅行/)
+          .expect(200)
+          .end((err,res)=>{
+            if(err){
+              console.log('ERROR:日記の削除は完了しています')
+              return done(err)
+            } else {
+              return done();
+            }
+          })
+        })
     })
   })
   it('予定の削除ができる（S3導入後)',(done)=>{
@@ -285,6 +300,21 @@ describe('S３導入後のCURD',()=>{
       request(app)
       .get(`/list/${listId}/delete/?delete=pGn4DvVbnoZ51MivajgyyaivO1mmGElpCc0k6dvEqn`)
       .expect(302)
+      .end((err,res)=>{
+        if(err){return console.log('ERROR：予定の削除は実行されました')}
+        request(app)
+        .get('/list')
+        .expect(/所在地 予定所在地/)
+        .expect(200)
+        .end((err,res)=>{
+          if(err){
+            console.log('ERROR 予定の削除は完了しています')
+            return done(err)
+          } else {
+            return done()
+          }
+        })
+      })
     })
   })
 })
